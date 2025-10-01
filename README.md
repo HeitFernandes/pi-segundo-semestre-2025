@@ -12,7 +12,7 @@
 <img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-plain-wordmark.svg" />
 </div>
 <div align='center'>    
-<h4>Desenvolvimento do Software de Gestão da Oficina de Motos "Baco"</h4>
+<h4>Desenvolvimento do Software de Gestão da Oficina de Motos Baco</h4>
         <img src="./branding/logoBaco.png"
         style="width: 180px; height: 180px;"/>
 </div> 
