@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "lint:frontend": "cd projeto-oficina/fronted && npx lint-staged"
+  }
+}
