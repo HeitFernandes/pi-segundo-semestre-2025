@@ -1,6 +1,6 @@
 ![status](https://img.shields.io/badge/status-desenvolvimento-blue)
 <div align='center'>
-<h1>Maineer - Software para Oficina de Motos</h1>
+<h1>Mainteer - Software para Oficina de Motos</h1>
 <h3>Projeto Interdisciplinar - 2º Semestre (FATEC)</h3>
 </div>
 
