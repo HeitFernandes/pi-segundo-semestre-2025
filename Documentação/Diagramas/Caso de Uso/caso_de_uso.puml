@@ -1,0 +1,47 @@
+@startuml casodeuso
+
+top to bottom direction
+
+actor "Funcionário" as func
+
+  usecase "Gerenciar Clientes" as UC_Clientes
+  usecase "Gerenciar Motos" as UC_Motos
+  usecase "Gerenciar Agendamentos" as UC_Agendamentos
+  usecase "Gerenciar Ordens de\nServiço (OS)" as UC_OS
+  usecase "Gerenciar Estoque de\nPeças" as UC_Estoque
+
+  usecase "Consultar Histórico\ndo Cliente" as UC_Historico
+  usecase "Buscar Cliente\nAssociado" as UC_BuscaClienteMoto
+  usecase "Cadastrar novo\nCliente" as UC_NovoCliente
+  usecase "Buscar Cliente e\nMoto" as UC_BuscaClienteOS
+  usecase "Adicionar Peças a\nOS" as UC_AddPecas
+  usecase "Consultar peças no\nEstoque" as UC_ConsultaEstoque
+  usecase "Solicitar compra\nde peça" as UC_SolicitaCompra
+
+' --- Relacionamentos do Ator com os Casos de Uso Principais ---
+func -- UC_Clientes
+func -- UC_Motos
+func -- UC_Agendamentos
+func -- UC_OS
+func -- UC_Estoque
+
+' --- Relacionamentos de Extends e Includes ---
+
+' Relacionamentos de "Gerenciar Clientes"
+UC_Clientes <.. UC_Historico : <<extends>>
+
+' Relacionamentos de "Gerenciar Motos"
+UC_Motos ..> UC_BuscaClienteMoto : <<include>>
+
+' Relacionamentos de "Gerenciar Agendamentos"
+UC_Agendamentos <.. UC_NovoCliente : <<extends>>
+
+' Relacionamentos de "Gerenciar Ordens de Serviço (OS)"
+UC_OS ..> UC_BuscaClienteOS : <<include>>
+UC_OS ..> UC_AddPecas : <<include>>
+
+' Relacionamentos em cascata a partir de "Adicionar Peças"
+UC_AddPecas ..> UC_ConsultaEstoque : <<include>>
+UC_ConsultaEstoque <.. UC_SolicitaCompra : <<extends>>
+
+@enduml
