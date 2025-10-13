@@ -1,10 +1,15 @@
 import React from 'react';
+import SideBar from './components/sidebar/sidebar';
+import GlobalStyles from './styles/globalStyles';
+import Layout from './components/background/background';
 
 function App() {
   return (
     <>
-      <h1>Hello world</h1>
-      <p>Teste de formatação</p>
+      <GlobalStyles />
+      <Layout>
+        <SideBar />
+      </Layout>
     </>
   );
 }
