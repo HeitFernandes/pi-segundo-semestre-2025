@@ -1,14 +1,15 @@
 import React from 'react';
-import SideBar from './components/sidebar/sidebar';
+
 import GlobalStyles from './styles/globalStyles';
 import Layout from './components/background/background';
+import Dashboard from './pages/dashboard/dashboard';
 
 function App() {
   return (
     <>
       <GlobalStyles />
       <Layout>
-        <SideBar />
+        <Dashboard />
       </Layout>
     </>
   );

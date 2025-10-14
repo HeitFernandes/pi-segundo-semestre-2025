@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   font-size: 25px;
   border-radius: 4px;
-  box-shadow: 0 0 8px #fff;
+  box-shadow: 0 0 8px #ccc;
   width: ${(props) => (props.$isExpanded ? '280px' : '100px')};
   transition: width 0.3s ease-in-out;
   position: relative;
@@ -63,8 +63,6 @@ export const NavList = styled.ul`
       }
     `}
 `;
-
-export const Line = styled.hr``;
 
 export const NavItem = styled.li``;
 

@@ -46,7 +46,6 @@ export default function SideBar() {
         </NavItem>
 
         <NavList $isUser>
-          {/* <Line /> */}
           <NavItem>
             <NavLink href="#" $isUser>
               <IconWrapper>
@@ -55,11 +54,10 @@ export default function SideBar() {
               <NavText $isExpanded={isExpanded}>Olá, Bem vindo!</NavText>
             </NavLink>
           </NavItem>
-          {/* <Line /> */}
         </NavList>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink href="/">
             <IconWrapper>
               <IoBarChart />
             </IconWrapper>

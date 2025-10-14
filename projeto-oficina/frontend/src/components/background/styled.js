@@ -14,9 +14,9 @@ export const GlobalBackground = styled.div`
     content: '';
     width: 1300px;
     position: absolute;
-    height: 1000px;
+    height: 1300px;
     left: -300px;
-    top: -350px;
+    top: -450px;
     background-image: url(${BackImage});
     background-repeat: no-repeat;
     background-size: cover;
