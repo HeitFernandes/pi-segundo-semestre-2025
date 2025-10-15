@@ -6,19 +6,22 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: 25px;
   border-radius: 4px;
-  box-shadow: 0 0 8px #fff;
-  width: ${(props) => (props.$isExpanded ? '280px' : '100px')};
-  transition: width 0.3s ease-in-out;
-  position: relative;
+  box-shadow: 0 0 8px #ccc;
+  width: ${(props) => (props.$isExpanded ? '320px' : '100px')};
+  transition: all 0.4s ease-in-out;
   overflow: hidden;
+  position: fixed;
+  padding: 0 15px;
+  z-index: 10;
+  top: 0;
+  left: 0;
 `;
 
 export const NavText = styled.span`
-  font-size: 20px;
+  font-size: 18px;
   white-space: nowrap;
   overflow: hidden;
   max-width: ${(props) => (props.$isExpanded ? '200px' : '0')};
@@ -35,7 +38,9 @@ export const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 65px;
-
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-style: normal;
   ${(props) =>
     props.$isUser &&
     css`
@@ -64,15 +69,17 @@ export const NavList = styled.ul`
     `}
 `;
 
-export const Line = styled.hr``;
-
-export const NavItem = styled.li``;
+export const NavItem = styled.li`
+  width: 100%;
+`;
 
 export const NavLink = styled.a`
   text-align: center;
   display: flex;
+  padding: 15px 10px;
   align-items: center;
-  padding: 15px 28px;
+  width: 100%;
+  justify-content: ${(props) => (props.$isExpanded ? 'flex-start' : 'center')};
   color: white;
   text-decoration: none;
   cursor: pointer;
@@ -93,6 +100,7 @@ export const NavLink = styled.a`
     props.$isUser &&
     css`
       margin: 0;
+      justify-content: ${props.$isExpanded ? 'center' : 'center'};
     `}
 
   ${NavText} {
@@ -109,7 +117,7 @@ export const IconeMainteer = styled.img`
   width: 60px;
   position: absolute;
   left: 20px;
-  left: ${(props) => (props.$isExpanded ? '60px' : '20px')};
+  left: ${(props) => (props.$isExpanded ? '83px' : '20px')};
   width: ${(props) => (props.$isExpanded ? '140px' : '60px')};
   transition: 0.3s ease-in-out;
 `;
