@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { IoBarChart } from 'react-icons/io5';
 import {
@@ -18,7 +19,6 @@ import {
   IconWrapper,
   Container,
   IconeMainteer,
-  // Line,
 } from './styled';
 
 export default function SideBar() {
@@ -40,14 +40,14 @@ export default function SideBar() {
     >
       <NavList>
         <NavItem>
-          <NavLink href="#" $isLogo>
+          <NavLink as={Link} to="/" $isLogo>
             <IconeMainteer src={iconePath} $isExpanded={isExpanded} />
           </NavLink>
         </NavItem>
 
         <NavList $isUser>
           <NavItem>
-            <NavLink href="#" $isUser>
+            <NavLink href="#" $isUser $isExpanded={isExpanded}>
               <IconWrapper>
                 <FaUserCircle />
               </IconWrapper>
@@ -57,7 +57,7 @@ export default function SideBar() {
         </NavList>
 
         <NavItem>
-          <NavLink href="/">
+          <NavLink as={Link} to="/" $isExpanded={isExpanded}>
             <IconWrapper>
               <IoBarChart />
             </IconWrapper>
@@ -66,7 +66,7 @@ export default function SideBar() {
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink as={Link} to="/motos" $isExpanded={isExpanded}>
             <IconWrapper>
               <FaMotorcycle />
             </IconWrapper>
@@ -75,7 +75,7 @@ export default function SideBar() {
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink as={Link} to="/clientes" $isExpanded={isExpanded}>
             <IconWrapper>
               <FaUser />
             </IconWrapper>
@@ -84,7 +84,7 @@ export default function SideBar() {
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink as={Link} to="/agendamentos" $isExpanded={isExpanded}>
             <IconWrapper>
               <FaCalendarAlt />
             </IconWrapper>
@@ -93,7 +93,7 @@ export default function SideBar() {
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink as={Link} to="/ordemdeservico" $isExpanded={isExpanded}>
             <IconWrapper>
               <FaTools />
             </IconWrapper>
@@ -102,7 +102,7 @@ export default function SideBar() {
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink as={Link} to="/logout" $isExpanded={isExpanded}>
             <IconWrapper>
               <TbLogout />
             </IconWrapper>
