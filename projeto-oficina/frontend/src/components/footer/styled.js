@@ -13,6 +13,9 @@ export const FooterDiv = styled.div`
   z-index: -1;
   box-shadow: 0 1px 8px #fffff0;
   overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-style: normal;
 `;
 
 export const Wavecontainer = styled.div`
@@ -88,7 +91,7 @@ export const FooterC = styled.div`
   bottom: 15px;
   line-height: 1.5;
   span {
-    width: 50%;
+    width: 60%;
     font-style: italic;
   }
 `;
