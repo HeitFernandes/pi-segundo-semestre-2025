@@ -94,6 +94,10 @@ export const NavLink = styled.a`
       &:hover {
         background-color: transparent;
       }
+
+      &.active {
+        background-color: transparent;
+      }
     `}
 
   ${(props) =>
@@ -105,6 +109,11 @@ export const NavLink = styled.a`
 
   ${NavText} {
     transition-delay: 0.1s;
+  }
+
+  &.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
   }
 `;
 
