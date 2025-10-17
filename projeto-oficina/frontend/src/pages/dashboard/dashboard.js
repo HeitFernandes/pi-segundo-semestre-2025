@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaArrowAltCircleUp } from 'react-icons/fa';
 
 import * as dash from './styled';
+import Chartfat from '../../components/charts/chartfat/chartfat';
 
 export default function Dashboard() {
   const [isVisible, setIsVisible] = useState(false); // Stare para controle de animação da seta até o topo
@@ -58,7 +59,9 @@ export default function Dashboard() {
 
       <dash.ContainerDash>
         <dash.DashOne>
-          <dash.ChartOne />
+          <dash.ChartOne>
+            <Chartfat />
+          </dash.ChartOne>
         </dash.DashOne>
         <dash.DashTwo>
           <dash.ChartTwo />

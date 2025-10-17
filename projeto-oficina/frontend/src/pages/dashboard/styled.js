@@ -24,6 +24,7 @@ export const ChartOne = styled.div`
   height: 480px;
   border: 1px solid #930707;
   border-radius: 12px;
+  padding: 10px;
 `;
 
 export const DashTwo = styled.div`
