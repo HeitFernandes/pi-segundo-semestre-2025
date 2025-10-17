@@ -3,6 +3,9 @@ import { FaArrowAltCircleUp } from 'react-icons/fa';
 
 import * as dash from './styled';
 import Chartfat from '../../components/charts/chartfat/chartfat';
+import ChartOS from '../../components/charts/chartOs/chartOs';
+import ChartServicos from '../../components/charts/chartServicos/chartServicos';
+import ChartTicketMedio from '../../components/charts/chartTicketMedio/chartTicketMedio';
 
 export default function Dashboard() {
   const [isVisible, setIsVisible] = useState(false); // Stare para controle de animação da seta até o topo
@@ -45,10 +48,10 @@ export default function Dashboard() {
       <dash.DashTop>
         <dash.ChartTopOne>
           <dash.TitleTop>Faturamento Mensal</dash.TitleTop>
-          <h4 className="MiniTitle">R$ 15.486,58</h4>
+          <h4 className="MiniTitle">R$ 17.000,00</h4>
         </dash.ChartTopOne>
         <dash.ChartTopTwo>
-          <dash.TitleTop>Ordens de Serviço</dash.TitleTop>
+          <dash.TitleTop>Ordens de Serviço - ABERTAS</dash.TitleTop>
           <h4 className="MiniTitle">45</h4>
         </dash.ChartTopTwo>
         <dash.ChartTopThree>
@@ -63,17 +66,69 @@ export default function Dashboard() {
             <Chartfat />
           </dash.ChartOne>
         </dash.DashOne>
+
         <dash.DashTwo>
-          <dash.ChartTwo />
+          <dash.ChartTwo>
+            <dash.DivAnimation>
+              <dash.ChartDivOne>
+                <h2>
+                  08/10 - 14:00 <span>TROCA DE ÓLEO</span> Honda CG 160
+                </h2>
+              </dash.ChartDivOne>
+              <dash.ChartDivTwo>
+                <h2>
+                  09/10 - 10:00 <span>REVISÃO</span> Yamaha Fazer 250
+                </h2>
+              </dash.ChartDivTwo>
+              <dash.ChartDivThree>
+                <h2>
+                  09/10 - 14:00 <span>TROCA DE PNEU</span> Yamaha YBR 125
+                </h2>
+              </dash.ChartDivThree>{' '}
+              <dash.ChartDivFour>
+                <h2>
+                  10/10 - 17:00 <span>MOTOR</span> Yamaha Factor 150
+                </h2>
+              </dash.ChartDivFour>
+              <dash.ChartDivOne>
+                <h2>
+                  08/10 - 14:00 <span>TROCA DE ÓLEO</span> Honda CG 160
+                </h2>
+              </dash.ChartDivOne>
+              <dash.ChartDivTwo>
+                <h2>
+                  09/10 - 10:00 <span>REVISÃO</span> Yamaha Fazer 250
+                </h2>
+              </dash.ChartDivTwo>
+              <dash.ChartDivThree>
+                <h2>
+                  09/10 - 14:00 <span>TROCA DE PNEU</span> Yamaha YBR 125
+                </h2>
+              </dash.ChartDivThree>
+              <dash.ChartDivFour>
+                <h2>
+                  10/10 - 17:00 <span>MOTOR</span> Yamaha Factor 150
+                </h2>
+              </dash.ChartDivFour>
+            </dash.DivAnimation>
+          </dash.ChartTwo>
         </dash.DashTwo>
       </dash.ContainerDash>
 
       <dash.DashGeral>
         <dash.DashTitle>Visão Geral da Oficina</dash.DashTitle>
-        <dash.ChartThree />
+        <dash.ChartThree>
+          <ChartOS />
+        </dash.ChartThree>
+
         <dash.ChartFinal>
-          <dash.ChartFour />
-          <dash.ChartFive />
+          <dash.ChartFour>
+            <ChartServicos />
+          </dash.ChartFour>
+
+          <dash.ChartFive>
+            <ChartTicketMedio />
+          </dash.ChartFive>
         </dash.ChartFinal>
       </dash.DashGeral>
     </>

@@ -22,18 +22,20 @@ Chartjs.register(
   ChartDataLabels
 );
 
-export default function Chartfat() {
+export default function ChartTicketMedio() {
   const dadosBrutosMeses = [
-    { mes: 'Janeiro', faturamento: 22500 },
-    { mes: 'Fevereiro', faturamento: 25000 },
-    { mes: 'Março', faturamento: 17000 },
-    { mes: 'Abril', faturamento: 13000 },
-    { mes: 'Maio', faturamento: 31000 },
-    { mes: 'Junho', faturamento: 28000 },
+    { mes: 'Janeiro', faturamento: 22500, totalOS: 50 },
+    { mes: 'Fevereiro', faturamento: 25000, totalOS: 55 },
+    { mes: 'Março', faturamento: 17000, totalOS: 41 },
+    { mes: 'Abril', faturamento: 13000, totalOS: 34 },
+    { mes: 'Maio', faturamento: 31000, totalOS: 62 },
+    { mes: 'Junho', faturamento: 28000, totalOS: 57 },
   ];
 
   const labels = dadosBrutosMeses.map((dado) => dado.mes);
-  const valor = dadosBrutosMeses.map((dado) => dado.faturamento.toFixed(2));
+  const ticketMedio = dadosBrutosMeses.map((dado) =>
+    (dado.faturamento / dado.totalOS).toFixed(2)
+  );
 
   const options = {
     responsive: true,
@@ -42,7 +44,7 @@ export default function Chartfat() {
       legend: {
         position: 'top',
         labels: {
-          color: '#252525',
+          color: '#fffff0',
           font: {
             weight: 'bold',
             size: 12,
@@ -51,15 +53,15 @@ export default function Chartfat() {
       },
       title: {
         display: true,
-        text: 'Faturamento Anual - 2025',
-        color: '#252525',
+        text: 'Evolução do Ticket Médio Semestral - 2025',
+        color: '#fffff0',
         font: {
           size: 15,
         },
       },
       datalabels: {
         display: true,
-        color: '#252525',
+        color: '#fffff0',
         font: {
           size: 14,
         },
@@ -71,7 +73,7 @@ export default function Chartfat() {
     scales: {
       x: {
         ticks: {
-          color: '#252525',
+          color: '#fffff0',
           font: {
             size: 11,
           },
@@ -81,7 +83,7 @@ export default function Chartfat() {
       },
       y: {
         ticks: {
-          color: '#252525',
+          color: '#fffff0',
           callback(value) {
             return `R$ ${value}`;
           },
@@ -94,10 +96,10 @@ export default function Chartfat() {
     labels,
     datasets: [
       {
-        label: 'Faturamento Mensal',
-        data: valor,
+        label: 'Ticket Médio (R$)',
+        data: ticketMedio,
         backgroundColor: 'rgba(147, 7, 7, 0.9)',
-        borderColor: '#252525',
+        borderColor: '#fffff0',
         borderWidth: 1,
       },
     ],

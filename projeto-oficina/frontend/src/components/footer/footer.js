@@ -3,11 +3,25 @@ import { FaHeart, FaRegCopyright, FaWhatsapp } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa6';
 import { GrInstagram } from 'react-icons/gr';
 import { CiLinkedin } from 'react-icons/ci';
-import { FooterDiv, NexBit, FooterName, FooterC, FooterIcons } from './styled';
+import {
+  FooterDiv,
+  NexBit,
+  FooterName,
+  FooterC,
+  FooterIcons,
+  Svg,
+  PathSvg,
+  Wavecontainer,
+} from './styled';
 
 export default function Footer() {
   return (
     <FooterDiv>
+      <Wavecontainer>
+        <Svg viewBox="0 0 120 20" preserveAspectRatio="none">
+          <PathSvg d="M0,10 C30,28 90,0 120,18 L120,0 L0,0 Z" fill="#7a0000" />
+        </Svg>
+      </Wavecontainer>
       <NexBit />
       <FooterName>
         <FooterIcons>
