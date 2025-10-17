@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowAltCircleUp } from 'react-icons/fa';
 
-import {
-  ContainerDash,
-  DashOne,
-  DashTwo,
-  DashGeral,
-  ChartOne,
-  ChartTwo,
-  ChartThree,
-  ChartFinal,
-  ChartFour,
-  ChartFive,
-  DashTitle,
-  Arrow,
-  DashTop,
-  ChartTopOne,
-  ChartTopTwo,
-  ChartTopThree,
-  TitleTop,
-} from './styled';
+import * as dash from './styled';
 
 export default function Dashboard() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // Stare para controle de animação da seta até o topo
 
   const toggleVisibility = () => {
+    // Verificação do scroll da página para a seta aparecer apenas quando for "scrollada"
     if (window.pageYOffset > 200) {
       setIsVisible(true);
     } else {
@@ -32,6 +15,7 @@ export default function Dashboard() {
     }
   };
 
+  // Função para clicar na seta e voltar para o topo da página
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -39,9 +23,11 @@ export default function Dashboard() {
     });
   };
 
+  // Hooks para ouvir um evento e executar as funções
   useEffect(() => {
     window.addEventListener('scroll', toggleVisibility);
 
+    // Return para remover assim que o componente for desmontado
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
@@ -50,43 +36,43 @@ export default function Dashboard() {
   return (
     <>
       {isVisible && (
-        <Arrow onClick={scrollToTop}>
+        <dash.Arrow onClick={scrollToTop}>
           <FaArrowAltCircleUp />
-        </Arrow>
+        </dash.Arrow>
       )}
 
-      <DashTop>
-        <ChartTopOne>
-          <TitleTop>Faturamento Mensal</TitleTop>
+      <dash.DashTop>
+        <dash.ChartTopOne>
+          <dash.TitleTop>Faturamento Mensal</dash.TitleTop>
           <h4 className="MiniTitle">R$ 15.486,58</h4>
-        </ChartTopOne>
-        <ChartTopTwo>
-          <TitleTop>Ordens de Serviço</TitleTop>
+        </dash.ChartTopOne>
+        <dash.ChartTopTwo>
+          <dash.TitleTop>Ordens de Serviço</dash.TitleTop>
           <h4 className="MiniTitle">45</h4>
-        </ChartTopTwo>
-        <ChartTopThree>
-          <TitleTop>Motos na Oficina</TitleTop>
+        </dash.ChartTopTwo>
+        <dash.ChartTopThree>
+          <dash.TitleTop>Motos na Oficina</dash.TitleTop>
           <h4 className="MiniTitle">9</h4>
-        </ChartTopThree>
-      </DashTop>
+        </dash.ChartTopThree>
+      </dash.DashTop>
 
-      <ContainerDash>
-        <DashOne>
-          <ChartOne />
-        </DashOne>
-        <DashTwo>
-          <ChartTwo />
-        </DashTwo>
-      </ContainerDash>
+      <dash.ContainerDash>
+        <dash.DashOne>
+          <dash.ChartOne />
+        </dash.DashOne>
+        <dash.DashTwo>
+          <dash.ChartTwo />
+        </dash.DashTwo>
+      </dash.ContainerDash>
 
-      <DashGeral>
-        <DashTitle>Visão Geral da Oficina</DashTitle>
-        <ChartThree />
-        <ChartFinal>
-          <ChartFour />
-          <ChartFive />
-        </ChartFinal>
-      </DashGeral>
+      <dash.DashGeral>
+        <dash.DashTitle>Visão Geral da Oficina</dash.DashTitle>
+        <dash.ChartThree />
+        <dash.ChartFinal>
+          <dash.ChartFour />
+          <dash.ChartFive />
+        </dash.ChartFinal>
+      </dash.DashGeral>
     </>
   );
 }
