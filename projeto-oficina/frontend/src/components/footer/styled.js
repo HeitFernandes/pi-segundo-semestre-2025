@@ -15,6 +15,10 @@ export const FooterDiv = styled.div`
   bottom: 0;
   z-index: -1;
   box-shadow: 0 1px 8px #fffff0;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-style: normal;
 `;
 
 export const NexBit = styled.div`
@@ -68,7 +72,7 @@ export const FooterC = styled.div`
   bottom: 7px;
 
   span {
-    width: 50%;
+    width: 60%;
     font-style: italic;
   }
 `;
