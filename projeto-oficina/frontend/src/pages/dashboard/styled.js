@@ -13,10 +13,10 @@ export const DashOne = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: #fffff0;
   width: 48%;
   height: 500px;
-  border-radius: 12px;
+  border-radius: 9px;
 `;
 
 export const ChartOne = styled.div`
@@ -30,10 +30,10 @@ export const DashTwo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: #fffff0;
   width: 48%;
   height: 500px;
-  border-radius: 12px;
+  border-radius: 9px;
 `;
 
 export const ChartTwo = styled.div`
@@ -78,7 +78,7 @@ export const DashGeral = styled.div`
   gap: 20px;
   width: 80%;
   height: 100vh;
-  margin: 0 auto;
+  margin: 0 auto 200px;
   position: relative;
 
   &::before {
