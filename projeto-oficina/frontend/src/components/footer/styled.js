@@ -73,7 +73,7 @@ export const FooterIcons = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 25px;
-  gap: 10px;
+  gap: 30px;
   width: 100%;
   height: 100%;
 `;
@@ -84,7 +84,7 @@ export const FooterC = styled.div`
   align-items: center;
   flex-direction: column;
   width: 500px;
-  height: 150px;
+  height: 140px;
   color: #fffff0;
   position: absolute;
   right: 0;
