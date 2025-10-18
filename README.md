@@ -9,7 +9,12 @@
 <img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" />
 <img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
 <img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
+<img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original-wordmark.svg" />
+<img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+<img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original-wordmark.svg" />
+<img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
 <img width='50' height='50' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-plain-wordmark.svg" />
+          
 </div>
 <div align='center'>    
 <h4>Desenvolvimento do Software de Gestão da Oficina de Motos "Baco"</h4>
@@ -33,7 +38,7 @@
       </tr>
       <tr>
         <td>Felipe Rodrigues Teixeira</td>
-        <td>Desenvolvedor Back-End, Documentação</td>
+        <td>Desenvolvedor Full Stack, Documentação</td>
       </tr>
       <tr>
         <td>Paola Gabriele de Oliveira</td>
@@ -47,6 +52,6 @@
   </table>
   <h4>Sobre a NexBit</h4>
   <p>NexBit é uma empresa dedicada ao desenvolvimento de soluções de software inteligentes e personalizadas, focadas em otimizar a gestão e facilitar o dia a dia das empresas. Neste projeto, buscamos modernizar a rotina de uma oficina de motocicletas por meio da tecnologia.</p>
-  <img align='center'src="./branding/logoNexBit.png"
+  <img align='center'git src="./branding/logoNexBit.png"
         style="width: 180px; height: 180px;"/>
   </div>
