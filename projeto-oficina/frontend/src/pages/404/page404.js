@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+
 import { NotFound, TitleOne, Footer404 } from './styled';
 
 export default function Page404() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/', { replace: true });
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
     <NotFound>
       <TitleOne>
