@@ -35,9 +35,10 @@ export default function Footer() {
         </h4>
       </FooterName>
       <FooterC>
-        <h4>About</h4>
+        <h4>Sobre:</h4>
         <span>
-          NexBit é uma empresa dedicada ao desenvolvimento de software
+          NexBit é uma empresa dedicada ao desenvolvimento de software e
+          soluções inteligentes.
         </span>
         <FooterIcons />
         <h4>
