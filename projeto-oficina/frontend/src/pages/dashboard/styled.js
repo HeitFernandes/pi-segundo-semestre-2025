@@ -243,6 +243,7 @@ export const DashTop = styled.div`
   border-radius: 12px;
   gap: 15px;
   box-shadow: 0 1px 8px #fffff0;
+  border: 1px solid #fffff0;
 `;
 
 export const TitleTop = styled.h4`
@@ -265,7 +266,7 @@ export const ChartTopOne = styled.div`
   height: 140px;
   border-radius: 8px;
   padding: 10px;
-  border: 1px solid #970707;
+  border: 2px solid #970707;
   text-align: center;
 
   .MiniTitle {
@@ -280,7 +281,7 @@ export const ChartTopTwo = styled.div`
   width: 40%;
   height: 140px;
   border-radius: 8px;
-  border: 1px solid #970707;
+  border: 2px solid #970707;
   padding: 10px;
   text-align: center;
 
@@ -296,7 +297,7 @@ export const ChartTopThree = styled.div`
   width: 40%;
   height: 140px;
   border-radius: 8px;
-  border: 1px solid #970707;
+  border: 2px solid #970707;
   padding: 10px;
   text-align: center;
 
