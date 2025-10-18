@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const scrollUp = keyframes`
+  0% {
+    transform: translateY(0)
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+`;
 
 export const ContainerDash = styled.div`
   display: flex;
@@ -24,35 +34,107 @@ export const ChartOne = styled.div`
   height: 480px;
   border: 1px solid #930707;
   border-radius: 12px;
+  padding: 10px;
 `;
 
 export const DashTwo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   background: #fffff0;
   width: 48%;
   height: 500px;
   border-radius: 9px;
+  padding: 10px;
+  position: relative;
 `;
 
 export const ChartTwo = styled.div`
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
   width: 710px;
   height: 480px;
   border-radius: 12px;
   border: 1px solid #930707;
+  overflow: hidden;
+
+  h2 {
+    text-align: center;
+    margin: 30px;
+    color: #fffff0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  span {
+    font-weight: bold;
+  }
+`;
+
+export const DivAnimation = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  width: 710px;
+
+  animation: ${scrollUp} 15s linear infinite;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+`;
+
+export const ChartDivOne = styled.div`
+  width: 90%;
+  background: #930707;
+  border: 1px solid #fffff0;
+  border-radius: 9px;
+  box-shadow: 0 2px 7px #252525;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+`;
+export const ChartDivTwo = styled.div`
+  width: 90%;
+  background: #930707;
+  border: 1px solid #fffff0;
+  border-radius: 9px;
+  box-shadow: 0 2px 7px #252525;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+`;
+export const ChartDivThree = styled.div`
+  width: 90%;
+  background: #930707;
+  border: 1px solid #fffff0;
+  border-radius: 9px;
+  box-shadow: 0 2px 7px #252525;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+`;
+
+export const ChartDivFour = styled.div`
+  width: 90%;
+  background: #930707;
+  border: 1px solid #fffff0;
+  border-radius: 9px;
+  box-shadow: 0 2px 7px #252525;
+  flex-shrink: 0;
+  margin-bottom: 20px;
 `;
 
 export const ChartThree = styled.div`
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background: #252525;
   width: 99%;
   height: 500px;
   border-radius: 12px;
   border: 1px solid #930707;
+  padding: 10px;
+  box-shadow: 0 2px 7px #252525;
 `;
 
 export const DashTitle = styled.h1`
@@ -77,8 +159,7 @@ export const DashGeral = styled.div`
   padding: 0 20px 20px 20px;
   gap: 20px;
   width: 80%;
-  height: 100vh;
-  margin: 0 auto 200px;
+  margin: 0 auto 250px;
   position: relative;
 
   &::before {
@@ -102,12 +183,13 @@ export const ChartFinal = styled.div`
 `;
 
 export const ChartFour = styled.div`
-  background-position: center;
-  background-repeat: no-repeat;
   width: 700px;
   height: 450px;
   border-radius: 12px;
   border: 1px solid #930707;
+  padding: 10px;
+  background: #252525;
+  box-shadow: 0 2px 7px #252525;
 `;
 
 export const ChartFive = styled.div`
@@ -115,6 +197,9 @@ export const ChartFive = styled.div`
   height: 450px;
   border: 1px solid #930707;
   border-radius: 12px;
+  padding: 10px;
+  background: #252525;
+  box-shadow: 0 2px 7px #252525;
 `;
 
 export const Arrow = styled.div`
