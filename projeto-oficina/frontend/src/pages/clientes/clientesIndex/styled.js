@@ -218,13 +218,13 @@ export const Td = styled.td`
   }
 
   .delete {
-    color: #252525;
+    color: #930707;
     text-align: center;
     font-size: 20px;
     cursor: pointer;
 
     &:hover {
-      color: #930707;
+      color: #252525;
     }
   }
 `;

@@ -1,26 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import axios from '../../../services/axios';
 
-import {
-  Container,
-  DivForm,
-  Form,
-  InputName,
-  CpfTel,
-  InputCPF,
-  InputTEL,
-  InputEndereco,
-  CepNum,
-  InputCep,
-  InputNum,
-  InputEmail,
-  InputOBS,
-  InputBairro,
-  ArrowReturn,
-} from './styled';
+import clienteSchema from '../../../services/validator';
+
+import * as clientes from './styled';
 import * as index from '../clientesIndex/styled';
 
 export default function ClientesStore() {
@@ -30,45 +18,18 @@ export default function ClientesStore() {
     navigate('/clientes/index');
   };
 
-  const [formData, setFormData] = useState({
-    nome: '',
-    cpf: '',
-    telefone: '',
-    endereco: '',
-    cep: '',
-    numero: '',
-    email: '',
-    observacao: '',
+  const { register, handleSubmit, reset } = useForm({
+    resolver: yupResolver(clienteSchema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleFormSubmit = async (data) => {
     try {
-      const response = await axios.post('/clientes/store.php', formData);
+      const response = await axios.post('/clientes/store.php', data);
 
       toast.success(response.data.message);
       navigate('/clientes/index');
 
-      setFormData({
-        nome: '',
-        cpf: '',
-        telefone: '',
-        endereco: '',
-        cep: '',
-        bairro: '',
-        numero: '',
-        email: '',
-        observacao: '',
-      });
+      reset();
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
@@ -78,94 +39,60 @@ export default function ClientesStore() {
     }
   };
 
+  const onInvalid = (validationErrors) => {
+    Object.values(validationErrors).forEach((error) => {
+      toast.error(error.message);
+    });
+  };
+
   return (
-    <Container>
-      <ArrowReturn>
+    <clientes.Container>
+      <clientes.ArrowReturn>
         <FaArrowAltCircleLeft onClick={handleReturn} />
-      </ArrowReturn>
-      <DivForm>
+      </clientes.ArrowReturn>
+      <clientes.DivForm>
         <index.DivTitle className="Title">
           <index.Title>Cadastro Clientes</index.Title>
         </index.DivTitle>
-        <Form method="POST" action="" onSubmit={handleSubmit}>
-          <InputName
+        <clientes.Form
+          method="POST"
+          action=""
+          onSubmit={handleSubmit(handleFormSubmit, onInvalid)}
+        >
+          <clientes.InputName
+            {...register('nome')}
             type="text"
-            required
             placeholder="Nome Completo"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
           />
-          <CpfTel>
-            <InputCPF
+          <clientes.CpfTel>
+            <clientes.InputCPF
+              {...register('cpf')}
               type="text"
-              required
               placeholder="CPF"
-              name="cpf"
-              value={formData.cpf}
-              onChange={handleChange}
             />
-            <InputTEL
+            <clientes.InputTEL
+              {...register('telefone')}
               type="number"
               placeholder="Telefone"
-              name="telefone"
-              value={formData.telefone}
-              onChange={handleChange}
             />
-          </CpfTel>
-          <InputEndereco
+          </clientes.CpfTel>
+          <clientes.InputEndereco type="text" required placeholder="Endereço" />
+          <clientes.CepNum>
+            <clientes.InputCep type="number" required placeholder="CEP" />
+            <clientes.InputBairro type="text" placeholder="Bairro" />
+            <clientes.InputNum type="number" required placeholder="Número" />
+          </clientes.CepNum>
+          <clientes.InputEmail
+            {...register('email')}
             type="text"
-            required
-            placeholder="Endereço"
-            name="endereco"
-            value={formData.endereco}
-            onChange={handleChange}
-          />
-          <CepNum>
-            <InputCep
-              type="number"
-              required
-              placeholder="CEP"
-              name="cep"
-              value={formData.cep}
-              onChange={handleChange}
-            />
-            <InputBairro
-              type="text"
-              placeholder="Bairro"
-              name="bairro"
-              value={formData.bairro}
-              onChange={handleChange}
-            />
-            <InputNum
-              type="number"
-              required
-              placeholder="Número"
-              name="numero"
-              value={formData.numero}
-              onChange={handleChange}
-            />
-          </CepNum>
-          <InputEmail
-            type="email"
-            required
             placeholder="E-mail"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
           />
-          <InputOBS
-            type="text"
-            placeholder="Observação"
-            name="observacao"
-            value={formData.observacao}
-            onChange={handleChange}
-          />
+          <clientes.InputOBS type="text" placeholder="Observação" />
           <index.BotaoCadastro className="BtnCadastro" type="submit">
             Cadastrar
           </index.BotaoCadastro>
-        </Form>
-      </DivForm>
-    </Container>
+        </clientes.Form>
+      </clientes.DivForm>
+    </clientes.Container>
   );
 }
