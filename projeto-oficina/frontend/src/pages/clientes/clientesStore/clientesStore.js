@@ -8,23 +8,7 @@ import axios from '../../../services/axios';
 
 import clienteSchema from '../../../services/validator';
 
-import {
-  Container,
-  DivForm,
-  Form,
-  InputName,
-  CpfTel,
-  InputCPF,
-  InputTEL,
-  InputEndereco,
-  CepNum,
-  InputCep,
-  InputNum,
-  InputEmail,
-  InputOBS,
-  InputBairro,
-  ArrowReturn,
-} from './styled';
+import * as clientes from './styled';
 import * as index from '../clientesIndex/styled';
 
 export default function ClientesStore() {
@@ -62,45 +46,53 @@ export default function ClientesStore() {
   };
 
   return (
-    <Container>
-      <ArrowReturn>
+    <clientes.Container>
+      <clientes.ArrowReturn>
         <FaArrowAltCircleLeft onClick={handleReturn} />
-      </ArrowReturn>
-      <DivForm>
+      </clientes.ArrowReturn>
+      <clientes.DivForm>
         <index.DivTitle className="Title">
           <index.Title>Cadastro Clientes</index.Title>
         </index.DivTitle>
-        <Form
+        <clientes.Form
           method="POST"
           action=""
           onSubmit={handleSubmit(handleFormSubmit, onInvalid)}
         >
-          <InputName
+          <clientes.InputName
             {...register('nome')}
             type="text"
             placeholder="Nome Completo"
           />
-          <CpfTel>
-            <InputCPF {...register('cpf')} type="text" placeholder="CPF" />
-            <InputTEL
+          <clientes.CpfTel>
+            <clientes.InputCPF
+              {...register('cpf')}
+              type="text"
+              placeholder="CPF"
+            />
+            <clientes.InputTEL
               {...register('telefone')}
               type="number"
               placeholder="Telefone"
             />
-          </CpfTel>
-          <InputEndereco type="text" required placeholder="Endereço" />
-          <CepNum>
-            <InputCep type="number" required placeholder="CEP" />
-            <InputBairro type="text" placeholder="Bairro" />
-            <InputNum type="number" required placeholder="Número" />
-          </CepNum>
-          <InputEmail {...register('email')} type="text" placeholder="E-mail" />
-          <InputOBS type="text" placeholder="Observação" />
+          </clientes.CpfTel>
+          <clientes.InputEndereco type="text" required placeholder="Endereço" />
+          <clientes.CepNum>
+            <clientes.InputCep type="number" required placeholder="CEP" />
+            <clientes.InputBairro type="text" placeholder="Bairro" />
+            <clientes.InputNum type="number" required placeholder="Número" />
+          </clientes.CepNum>
+          <clientes.InputEmail
+            {...register('email')}
+            type="text"
+            placeholder="E-mail"
+          />
+          <clientes.InputOBS type="text" placeholder="Observação" />
           <index.BotaoCadastro className="BtnCadastro" type="submit">
             Cadastrar
           </index.BotaoCadastro>
-        </Form>
-      </DivForm>
-    </Container>
+        </clientes.Form>
+      </clientes.DivForm>
+    </clientes.Container>
   );
 }
