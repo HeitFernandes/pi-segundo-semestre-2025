@@ -4,26 +4,7 @@ import { useNavigate, useParams } from 'react-router';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
 import axios from '../../../services/axios';
 
-import {
-  Container,
-  DivForm,
-  Form,
-  InputName,
-  InputCPF,
-  InputTEL,
-  InputEndereco,
-  CepNum,
-  InputCep,
-  InputNum,
-  InputEmail,
-  InputOBS,
-  InputBairro,
-  InputAtivo,
-  LabelAtivo,
-  DivAtivo,
-  CpfTelCli,
-  ArrowReturn,
-} from '../clientesStore/styled';
+import * as clientes from '../clientesStore/styled';
 import * as index from '../clientesIndex/styled';
 
 export default function ClientesEdit() {
@@ -109,16 +90,16 @@ export default function ClientesEdit() {
   };
 
   return (
-    <Container>
-      <ArrowReturn>
+    <clientes.Container>
+      <clientes.ArrowReturn>
         <FaArrowAltCircleLeft onClick={handleReturn} />
-      </ArrowReturn>
-      <DivForm>
+      </clientes.ArrowReturn>
+      <clientes.DivForm>
         <index.DivTitle className="Title">
           <index.Title>Edição de Clientes</index.Title>
         </index.DivTitle>
-        <Form method="POST" action="" onSubmit={handleSubmit}>
-          <InputName
+        <clientes.Form method="POST" action="" onSubmit={handleSubmit}>
+          <clientes.InputName
             type="text"
             required
             placeholder="Nome Completo"
@@ -126,8 +107,8 @@ export default function ClientesEdit() {
             value={formData.CLI_NOME}
             onChange={handleChange}
           />
-          <CpfTelCli>
-            <InputCPF
+          <clientes.CpfTelCli>
+            <clientes.InputCPF
               type="text"
               required
               placeholder="CPF"
@@ -135,25 +116,25 @@ export default function ClientesEdit() {
               value={formData.CLI_CPF}
               onChange={handleChange}
             />
-            <InputTEL
+            <clientes.InputTEL
               type="number"
               placeholder="Telefone"
               name="CLI_TELEFONE"
               value={formData.CLI_TELEFONE}
               onChange={handleChange}
             />
-          </CpfTelCli>
-          <DivAtivo>
-            <LabelAtivo>Cliente Ativo?</LabelAtivo>
-            <InputAtivo
+          </clientes.CpfTelCli>
+          <clientes.DivAtivo>
+            <clientes.LabelAtivo>Cliente Ativo?</clientes.LabelAtivo>
+            <clientes.InputAtivo
               type="checkbox"
               name="CLI_ATIVO"
               // eslint-disable-next-line
             checked={formData.CLI_ATIVO == 1}
               onChange={handleChange}
             />
-          </DivAtivo>
-          <InputEndereco
+          </clientes.DivAtivo>
+          <clientes.InputEndereco
             type="text"
             required
             placeholder="Endereço"
@@ -161,8 +142,8 @@ export default function ClientesEdit() {
             value={formData.CLI_ENDERECO}
             onChange={handleChange}
           />
-          <CepNum>
-            <InputCep
+          <clientes.CepNum>
+            <clientes.InputCep
               type="number"
               required
               placeholder="CEP"
@@ -170,14 +151,14 @@ export default function ClientesEdit() {
               value={formData.CLI_CEP}
               onChange={handleChange}
             />
-            <InputBairro
+            <clientes.InputBairro
               type="text"
               placeholder="Bairro"
               name="CLI_BAIRRO"
               value={formData.CLI_BAIRRO}
               onChange={handleChange}
             />
-            <InputNum
+            <clientes.InputNum
               type="number"
               required
               placeholder="Número"
@@ -185,8 +166,8 @@ export default function ClientesEdit() {
               value={formData.CLI_NUMERO}
               onChange={handleChange}
             />
-          </CepNum>
-          <InputEmail
+          </clientes.CepNum>
+          <clientes.InputEmail
             type="email"
             required
             placeholder="E-mail"
@@ -194,7 +175,7 @@ export default function ClientesEdit() {
             value={formData.CLI_EMAIL}
             onChange={handleChange}
           />
-          <InputOBS
+          <clientes.InputOBS
             type="text"
             placeholder="Observação"
             name="CLI_OBSERVACAO"
@@ -204,8 +185,8 @@ export default function ClientesEdit() {
           <index.BotaoCadastro className="BtnCadastro" type="submit">
             Atualizar
           </index.BotaoCadastro>
-        </Form>
-      </DivForm>
-    </Container>
+        </clientes.Form>
+      </clientes.DivForm>
+    </clientes.Container>
   );
 }

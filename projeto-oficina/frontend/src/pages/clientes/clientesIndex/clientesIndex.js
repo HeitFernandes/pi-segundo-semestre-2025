@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router';
 import { IoIosSearch } from 'react-icons/io';
 import { IoHome } from 'react-icons/io5';
 import { toast } from 'react-toastify';
-import { FaEdit } from 'react-icons/fa';
-import { MdDeleteForever } from 'react-icons/md';
+import { FaEdit, FaTimesCircle } from 'react-icons/fa';
 import { confirmAlert } from 'react-confirm-alert';
 
 import * as index from './styled';
@@ -198,7 +197,7 @@ export default function ClientesIndex() {
                     <Link to={`/clientes/edit/${cliente.CLI_ID}`}>
                       <FaEdit className="edit" />
                     </Link>
-                    <MdDeleteForever
+                    <FaTimesCircle
                       className="delete"
                       onClick={() =>
                         handleDelete(cliente.CLI_ID, cliente.CLI_NOME)
