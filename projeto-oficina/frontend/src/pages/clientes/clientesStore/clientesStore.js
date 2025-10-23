@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import axios from '../../../services/axios';
+
+import clienteSchema from '../../../services/validator';
 
 import {
   Container,
@@ -30,45 +34,18 @@ export default function ClientesStore() {
     navigate('/clientes/index');
   };
 
-  const [formData, setFormData] = useState({
-    nome: '',
-    cpf: '',
-    telefone: '',
-    endereco: '',
-    cep: '',
-    numero: '',
-    email: '',
-    observacao: '',
+  const { register, handleSubmit, reset } = useForm({
+    resolver: yupResolver(clienteSchema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleFormSubmit = async (data) => {
     try {
-      const response = await axios.post('/clientes/store.php', formData);
+      const response = await axios.post('/clientes/store.php', data);
 
       toast.success(response.data.message);
       navigate('/clientes/index');
 
-      setFormData({
-        nome: '',
-        cpf: '',
-        telefone: '',
-        endereco: '',
-        cep: '',
-        bairro: '',
-        numero: '',
-        email: '',
-        observacao: '',
-      });
+      reset();
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message);
@@ -76,6 +53,12 @@ export default function ClientesStore() {
         toast.error('Não foi possível se conectar com o servidor.');
       }
     }
+  };
+
+  const onInvalid = (validationErrors) => {
+    Object.values(validationErrors).forEach((error) => {
+      toast.error(error.message);
+    });
   };
 
   return (
@@ -87,80 +70,32 @@ export default function ClientesStore() {
         <index.DivTitle className="Title">
           <index.Title>Cadastro Clientes</index.Title>
         </index.DivTitle>
-        <Form method="POST" action="" onSubmit={handleSubmit}>
+        <Form
+          method="POST"
+          action=""
+          onSubmit={handleSubmit(handleFormSubmit, onInvalid)}
+        >
           <InputName
+            {...register('nome')}
             type="text"
-            required
             placeholder="Nome Completo"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
           />
           <CpfTel>
-            <InputCPF
-              type="text"
-              required
-              placeholder="CPF"
-              name="cpf"
-              value={formData.cpf}
-              onChange={handleChange}
-            />
+            <InputCPF {...register('cpf')} type="text" placeholder="CPF" />
             <InputTEL
+              {...register('telefone')}
               type="number"
               placeholder="Telefone"
-              name="telefone"
-              value={formData.telefone}
-              onChange={handleChange}
             />
           </CpfTel>
-          <InputEndereco
-            type="text"
-            required
-            placeholder="Endereço"
-            name="endereco"
-            value={formData.endereco}
-            onChange={handleChange}
-          />
+          <InputEndereco type="text" required placeholder="Endereço" />
           <CepNum>
-            <InputCep
-              type="number"
-              required
-              placeholder="CEP"
-              name="cep"
-              value={formData.cep}
-              onChange={handleChange}
-            />
-            <InputBairro
-              type="text"
-              placeholder="Bairro"
-              name="bairro"
-              value={formData.bairro}
-              onChange={handleChange}
-            />
-            <InputNum
-              type="number"
-              required
-              placeholder="Número"
-              name="numero"
-              value={formData.numero}
-              onChange={handleChange}
-            />
+            <InputCep type="number" required placeholder="CEP" />
+            <InputBairro type="text" placeholder="Bairro" />
+            <InputNum type="number" required placeholder="Número" />
           </CepNum>
-          <InputEmail
-            type="email"
-            required
-            placeholder="E-mail"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <InputOBS
-            type="text"
-            placeholder="Observação"
-            name="observacao"
-            value={formData.observacao}
-            onChange={handleChange}
-          />
+          <InputEmail {...register('email')} type="text" placeholder="E-mail" />
+          <InputOBS type="text" placeholder="Observação" />
           <index.BotaoCadastro className="BtnCadastro" type="submit">
             Cadastrar
           </index.BotaoCadastro>

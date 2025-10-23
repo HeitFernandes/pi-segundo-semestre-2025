@@ -32,5 +32,6 @@ module.exports = {
     'no-console': 0,
     'default-param-last': 0,
     'no-alert': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };
