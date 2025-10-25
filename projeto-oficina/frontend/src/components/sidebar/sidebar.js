@@ -47,7 +47,12 @@ export default function SideBar() {
 
         <NavList $isUser>
           <NavItem>
-            <NavLink href="#" $isUser $isExpanded={isExpanded}>
+            <NavLink
+              as={RouterNavLink}
+              to="/user"
+              $isUser
+              $isExpanded={isExpanded}
+            >
               <IconWrapper>
                 <FaUserCircle />
               </IconWrapper>
