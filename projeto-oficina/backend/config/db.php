@@ -29,7 +29,7 @@ if ($isAzureEnvironment) {
     $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8";
 
 } else {
-    // Ambiente local (localhost)
+    // Ambiente local (localhost + mysql)
     $host     = 'localhost';
     $db_name  = 'mainteer';
     $username = 'root';
