@@ -1,0 +1,34 @@
+# Nome do seu workflow
+name: Deploy Mainteer PHP App to Azure
+
+# Gatilho: Rodar este workflow sempre que houver um push na branch 'main'
+on:
+  push:
+    branches:
+      - main
+
+# Tarefas
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. PASSO NOVO: Faz o login no Azure usando o JSON
+      - name: 'Log in to Azure'
+        uses: azure/login@v1
+        with:
+          # Lê o secret AZURE_CREDENTIALS que você acabou de criar
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # 2. Baixa o código do seu repositório
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v3
+
+      # 3. Faz o deploy (Note que NÃO há mais 'publish-profile')
+      - name: 'Deploy to Azure Web App'
+        uses: azure/webapps-deploy@v2
+        with:
+          # O nome do seu App Service
+          app-name: 'mainteer'
+          
+          # O código a ser enviado (raiz do projeto)
+          package: .
