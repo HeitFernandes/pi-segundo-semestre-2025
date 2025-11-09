@@ -1,7 +1,7 @@
 <?php
 $allowedOrigins = [
     'http://localhost:3000',
-    'https://thankful-river-054543d0f.3.azurestaticapps.net'
+    'https://black-meadow-0fc40280f.3.azurestaticapps.net'
 ];
 
 if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins)) {
@@ -29,7 +29,7 @@ if ($isAzureEnvironment) {
     $dsn = "mysql:host=$host;port=$port;dbname=$db_name;charset=utf8";
 
 } else {
-    // Ambiente local (localhost)
+    // Ambiente local (localhost + mysql)
     $host     = 'localhost';
     $db_name  = 'mainteer';
     $username = 'root';
