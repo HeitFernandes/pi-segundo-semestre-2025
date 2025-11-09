@@ -31,4 +31,4 @@ jobs:
           app-name: 'mainteer'
           
           # O código a ser enviado (raiz do projeto)
-          package: .
+          package: ./projeto-oficina/backend
