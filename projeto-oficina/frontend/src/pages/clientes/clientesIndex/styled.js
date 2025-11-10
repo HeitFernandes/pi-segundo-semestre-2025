@@ -204,6 +204,7 @@ export const Td = styled.td`
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-style: normal;
+  color: #252525;
 
   .edit {
     color: #930707;
