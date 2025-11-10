@@ -11,22 +11,25 @@ import Page404 from './pages/404/page404';
 import Clientes from './pages/clientes/clienteRoutes';
 import UserProfile from './pages/userProfile/userProfile';
 import Motos from './pages/motos/motosRoutes';
+import Login from './pages/login/loginPage';
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <Layout>
-        <Routes>
+      <Routes>
+        <Route path="/login/*" element={<Login />} />
+
+        <Route element={<Layout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/clientes/*" element={<Clientes />} />
           <Route path="/user" element={<UserProfile />} />
           <Route path="/motos/*" element={<Motos />} />
 
           <Route path="*" element={<Page404 />} />
-        </Routes>
-        <ToastContainer autoClose={4000} theme="dark" />
-      </Layout>
+        </Route>
+      </Routes>
+      <ToastContainer autoClose={4000} theme="dark" />
     </>
   );
 }
