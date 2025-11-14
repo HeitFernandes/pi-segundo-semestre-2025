@@ -16,6 +16,7 @@ export const InputId = styled.input`
   border: 1px solid #d9d9d9;
   border-radius: 6px;
   color: #fffff0;
+  cursor: not-allowed;
 
   &:not(:placeholder-shown) + ${Label} {
     left: -29%;
