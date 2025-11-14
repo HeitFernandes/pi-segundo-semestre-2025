@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { FixedBackground, GlobalBackground, MainContent } from './styled';
 import SideBar from '../sidebar/sidebar';
@@ -13,7 +14,7 @@ function Layout({ children }) {
       <GlobalBackground>
         <SideBar />
         <MainContent>
-          {children}
+          <Outlet />
           <Footer />
         </MainContent>
       </GlobalBackground>
