@@ -212,4 +212,8 @@ export const ArrowReturn = styled.div`
   &:hover {
     transform: scale(1.01);
   }
+
+  &.ArrowReturnMotos {
+    left: -12%;
+  }
 `;
