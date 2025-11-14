@@ -365,6 +365,7 @@ export const ObservacaoContent = styled.div`
   font-weight: 500;
   font-style: normal;
   padding: 5px;
+  color: #252525;
 `;
 
 export const ButtonsWrapper = styled.div`
