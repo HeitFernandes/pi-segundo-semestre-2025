@@ -12,6 +12,7 @@ import Clientes from './pages/clientes/clienteRoutes';
 import UserProfile from './pages/userProfile/userProfile';
 import Motos from './pages/motos/motosRoutes';
 import Login from './pages/login/loginPage';
+import Agendamentos from './pages/agendamentos/agendRoutes';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/clientes/*" element={<Clientes />} />
           <Route path="/user" element={<UserProfile />} />
           <Route path="/motos/*" element={<Motos />} />
+          <Route path="/agendamentos/*" element={<Agendamentos />} />
 
           <Route path="*" element={<Page404 />} />
         </Route>
