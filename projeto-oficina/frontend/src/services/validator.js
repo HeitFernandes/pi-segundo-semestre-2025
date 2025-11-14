@@ -20,4 +20,39 @@ const clienteSchema = yup.object().shape({
     }),
 });
 
+export const motosSchema = yup.object().shape({
+  placa: yup.string().required('A placa é obrigatória'),
+
+  modelo: yup.string().required('O modelo deve ser preenchido'),
+
+  cpf: yup
+    .string()
+    .required('O CPF do cliente é obrigatório')
+    .test('is-cpf', 'CPF inválido', (value) => {
+      if (!value) return false;
+      return cpf.isValid(value);
+    }),
+});
+
+export const motosUpdateSchema = yup.object().shape({
+  MOTO_PLACA: yup.string().required('A placa é obrigatória'),
+
+  MODELO_NOME: yup.string().required('O modelo deve ser preenchido'),
+
+  CLI_CPF: yup
+    .string()
+    .required('O CPF do cliente é obrigatório')
+    .test('is-cpf', 'CPF inválido', (value) => {
+      if (!value) return false;
+      return cpf.isValid(value);
+    }),
+
+  // MOTO_ID: yup.number().required(),
+  MOTO_ANO: yup.string().nullable(),
+  MARCA_NOME: yup.string().nullable(),
+  COR_NOME: yup.string().nullable(),
+  MOTO_OBSERVACAO: yup.string().nullable(),
+  MOTO_ATIVO: yup.mixed().nullable(),
+});
+
 export default clienteSchema;
