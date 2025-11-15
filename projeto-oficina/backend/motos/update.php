@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: UPDATE, POST, OPTIONS");
@@ -100,6 +104,8 @@ try {
     WHERE MOTO_ID = :id'
     );
 
+    $ativo_int = ($data['MOTO_ATIVO'] ?? 1) ? 1 : 0;
+
     $stmt->bindValue(':placa', htmlspecialchars(strip_tags($data['MOTO_PLACA'] ?? '')));
     $stmt->bindValue(':ano', htmlspecialchars(strip_tags($data['MOTO_ANO'] ?? '')));
     $stmt->bindValue(':marca', $marca_id);
@@ -107,7 +113,7 @@ try {
     $stmt->bindValue(':modelo', $modelo_id);
     $stmt->bindValue(':cliente', $cliente_id);
     $stmt->bindValue(':observacao', htmlspecialchars(strip_tags($data['MOTO_OBSERVACAO'] ?? '')));
-    $stmt->bindValue(':ativo', htmlspecialchars(strip_tags($data['MOTO_ATIVO'] ?? '')));
+    $stmt->bindValue(':ativo', $ativo_int);
     $stmt->bindValue(':id', $data['MOTO_ID'], PDO::PARAM_INT);
 
     $stmt->execute();
