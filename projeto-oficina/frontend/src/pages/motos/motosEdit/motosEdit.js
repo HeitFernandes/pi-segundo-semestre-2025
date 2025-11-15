@@ -17,7 +17,6 @@ import * as newMotos from '../motosStore/styled';
 import { ArrowReturn } from '../../clientes/clientesStore/styled';
 import axios from '../../../services/axios';
 import { motosUpdateSchema } from '../../../services/validator';
-
 import {
   IdAtivo,
   InputId,
