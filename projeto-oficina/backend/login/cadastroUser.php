@@ -10,7 +10,7 @@ header("Access-Control-Allow-Headers: Content-type, Access-Control-Allow-Headers
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
-        "status" => "erro",
+        "success" => false,
         "mensagem" => "Método não permitido."
     ]);
     exit;
@@ -24,7 +24,7 @@ $confirmarSenha = $dados["confirmarSenha"] ?? "";
 
 if (!$nome || !$senha || !$confirmarSenha) {
     echo json_encode([
-        "status" => "erro",
+        "success" => false,
         "mensagem" => "Todos os campos são obrigatórios."
     ]);
     exit;
@@ -32,7 +32,7 @@ if (!$nome || !$senha || !$confirmarSenha) {
 
 if ($senha !== $confirmarSenha) {
     echo json_encode([
-        "status" => "erro",
+        "success" => false,
         "mensagem" => "As senhas não coincidem."
     ]);
     exit;
@@ -40,23 +40,37 @@ if ($senha !== $confirmarSenha) {
 
 if (strlen($senha) < 6) {
     echo json_encode([
-        "status" => "erro",
+        "success" => false,
         "mensagem" => "A senha deve ter pelo menos 6 caracteres."
     ]);
     exit;
 }
-
 
 $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE nome = ?");
 $stmt->execute([$nome]);
 
 if ($stmt->fetch()) {
     echo json_encode([
-        "status" => "erro",
+        "success" => false,
         "mensagem" => "Usuário já existe. Escolha outro nome."
     ]);
     exit;
 }
 
+$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-$senhaHash = pa
+$stmt = $pdo->prepare("INSERT INTO usuarios (nome, senha) VALUES (?, ?)");
+
+if ($stmt->execute([$nome, $senhaHash])) {
+    echo json_encode([
+        "success" => true,
+        "mensagem" => "Usuário cadastrado com sucesso."
+    ]);
+    exit;
+} else {
+    echo json_encode([
+        "success" => false,
+        "mensagem" => "Erro ao cadastrar usuário."
+    ]);
+    exit;
+}
