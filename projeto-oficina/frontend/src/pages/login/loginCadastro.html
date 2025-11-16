@@ -7,7 +7,7 @@
     <title>Página de Cadastro // Mainteer</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/login.css">
 </head>
@@ -21,30 +21,37 @@
             <p class="text-secondary mb-0">Crie sua conta no sistema Mainteer</p>
         </div>
 
-        <form action="registrar_usuario.php" method="POST">
+
+        <form id="formCadastro">
             <div class="mb-3">
-                <label for="nome" class="form-label text-light">Usuário</label>
-                <input type="text" class="form-control bg-dark text-light border-secondary" id="nome" name="nome"
+                <label for="nome" class="form-label text-light">Nome</label>
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="nome" name="FUN_NOME"
                     placeholder="Digite seu nome completo" required>
             </div>
 
-
+            <div class="mb-3">
+                <label for="login" class="form-label text-light">Usuário (Login)</label>
+                <input type="text" class="form-control bg-dark text-light border-secondary" id="login" name="FUN_LOGIN"
+                    placeholder="Digite o usuário" required>
+            </div>
 
             <div class="mb-3">
                 <label for="senha" class="form-label text-light">Senha</label>
-                <input type="password" class="form-control bg-dark text-light border-secondary" id="senha" name="senha"
-                    placeholder="Crie uma senha" required>
+                <input type="password" class="form-control bg-dark text-light border-secondary" id="senha"
+                    name="FUN_SENHA" placeholder="Crie uma senha" required>
             </div>
 
             <div class="mb-3">
                 <label for="confirmar_senha" class="form-label text-light">Confirmar Senha</label>
-                <input type="password" class="form-control bg-dark text-light border-secondary" id="confirmar_senha" name="confirmar_senha"
+                <input type="password" class="form-control bg-dark text-light border-secondary" id="confirmar_senha"
                     placeholder="Confirme sua senha" required>
             </div>
 
             <div class="d-grid">
                 <button type="submit" class="btn btn-danger fw-semibold">Cadastrar</button>
             </div>
+
+            <div id="msgRetorno" class="mt-3 text-center"></div>
         </form>
 
         <div class="text-center mt-4">
@@ -61,9 +68,9 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+
+    <script src="cadastro.js"></script>
+
 </body>
 
 </html>

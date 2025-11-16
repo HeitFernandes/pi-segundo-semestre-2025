@@ -4,9 +4,8 @@ require_once __DIR__ . "/../config/db.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-type");
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
@@ -18,22 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 
 $dados = json_decode(file_get_contents("php://input"), true);
 
-$nome = trim($dados["nome"] ?? "");
-$senha = $dados["senha"] ?? "";
-$confirmarSenha = $dados["confirmarSenha"] ?? "";
+$nome  = trim($dados["FUN_NOME"] ?? "");
+$login = trim($dados["FUN_LOGIN"] ?? "");
+$senha = $dados["FUN_SENHA"] ?? "";
 
-if (!$nome || !$senha || !$confirmarSenha) {
+if (!$nome || !$login || !$senha) {
     echo json_encode([
         "success" => false,
-        "mensagem" => "Todos os campos são obrigatórios."
-    ]);
-    exit;
-}
-
-if ($senha !== $confirmarSenha) {
-    echo json_encode([
-        "success" => false,
-        "mensagem" => "As senhas não coincidem."
+        "mensagem" => "Nome, login e senha são obrigatórios."
     ]);
     exit;
 }
@@ -46,31 +37,34 @@ if (strlen($senha) < 6) {
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT id FROM usuarios WHERE nome = ?");
-$stmt->execute([$nome]);
+// Verifica se login já existe
+$stmt = $pdo->prepare("SELECT FUN_ID FROM funcionario WHERE FUN_LOGIN = ?");
+$stmt->execute([$login]);
 
 if ($stmt->fetch()) {
     echo json_encode([
         "success" => false,
-        "mensagem" => "Usuário já existe. Escolha outro nome."
+        "mensagem" => "Esse login já está em uso. Escolha outro."
     ]);
     exit;
 }
 
 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-$stmt = $pdo->prepare("INSERT INTO usuarios (nome, senha) VALUES (?, ?)");
+// Inserir
+$stmt = $pdo->prepare("
+    INSERT INTO funcionario (FUN_NOME, FUN_LOGIN, FUN_SENHA, FUN_ATIVO)
+    VALUES (?, ?, ?, 1)
+");
 
-if ($stmt->execute([$nome, $senhaHash])) {
+if ($stmt->execute([$nome, $login, $senhaHash])) {
     echo json_encode([
         "success" => true,
-        "mensagem" => "Usuário cadastrado com sucesso."
+        "mensagem" => "Usuário cadastrado com sucesso!"
     ]);
-    exit;
 } else {
     echo json_encode([
         "success" => false,
         "mensagem" => "Erro ao cadastrar usuário."
     ]);
-    exit;
 }
