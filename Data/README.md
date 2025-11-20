@@ -25,7 +25,7 @@ Ele contempla o cadastro de **clientes**, **funcionários**, **motos**, **ordens
 
 ## 🧱 Modelagem
 
-### 🔹 Modelo Conceitual
+### 🔹 [Modelo Conceitual](https://github.com/HeitFernandes/pi-segundo-semestre-2025/blob/main/Data/modelo_conceitual/Mainteer.png)
 Representa a visão de alto nível do sistema, destacando entidades principais, atributos e relacionamentos.  
 As principais entidades são:
 - **Cliente**
@@ -36,7 +36,7 @@ As principais entidades são:
 - **Peças de Serviço**
 - **Marca**, **Modelo** e **Cor** (para detalhamento da moto)
 
-### 🔹 Modelo Lógico
+### 🔹 [Modelo Lógico](https://github.com/HeitFernandes/pi-segundo-semestre-2025/blob/main/Data/modelo_logico/Mainteer_Logico.PNG)
 Estrutura o banco de dados de forma relacional, definindo:
 - **Chaves primárias e estrangeiras**
 - **Tipos de dados**
@@ -47,7 +47,7 @@ As tabelas possuem nomes e tipos de dados padronizados, respeitando boas prátic
 
 ---
 
-## 🧾 Dicionário de Dados
+## 🧾 [Dicionário de Dados](https://github.com/HeitFernandes/pi-segundo-semestre-2025/blob/main/Data/DicionarioDados%20-%20Mainteer.pdf)
 
 A planilha `DicionarioDados - Mainteer.xlsx` contém:
 - Nome de cada tabela e campo  
