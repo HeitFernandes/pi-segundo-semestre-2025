@@ -1,7 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
+
 import * as ordem from './styled';
+import { ArrowReturn } from '../../clientes/clientesStore/styled';
 
 export default function OrdensStore() {
+  const navigate = useNavigate();
+
+  const handleReturn = () => {
+    navigate('/ordemdeservico');
+  };
+
   return (
     <>
       <ordem.DivTop>
@@ -10,6 +20,9 @@ export default function OrdensStore() {
 
       <ordem.Container>
         <ordem.DivImg />
+        <ArrowReturn className="ArrowReturnOrdem">
+          <FaArrowAltCircleLeft onClick={handleReturn} />
+        </ArrowReturn>
 
         <ordem.Form>
           <ordem.InputServico type="text" placeholder="Serviço Realizado" />

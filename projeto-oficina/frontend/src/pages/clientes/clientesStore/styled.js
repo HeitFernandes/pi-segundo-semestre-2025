@@ -216,4 +216,10 @@ export const ArrowReturn = styled.div`
   &.ArrowReturnMotos {
     left: -12%;
   }
+
+  &.ArrowReturnOrdem {
+    left: -5%;
+    width: 40px;
+    height: 40px;
+  }
 `;
