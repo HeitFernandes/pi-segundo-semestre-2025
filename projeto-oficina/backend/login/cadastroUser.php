@@ -4,16 +4,6 @@ require_once __DIR__ . "/../config/db.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Content-type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-type");
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode([
-        "success" => false,
-        "mensagem" => "Método não permitido."
-    ]);
-    exit;
-}
 
 $dados = json_decode(file_get_contents("php://input"), true);
 
@@ -51,7 +41,7 @@ if ($stmt->fetch()) {
 
 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-// Inserir
+// Inserção
 $stmt = $pdo->prepare("
     INSERT INTO funcionario (FUN_NOME, FUN_LOGIN, FUN_SENHA, FUN_ATIVO)
     VALUES (?, ?, ?, 1)

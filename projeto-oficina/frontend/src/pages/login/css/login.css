@@ -39,3 +39,15 @@ body {
 small {
     font-size: 0.85rem;
 }
+ /*mensagens de sucesso/erro*/
+.msg {
+    font-weight: bold;
+}
+
+.msg-success {
+    color: #28a745;  /* verde */
+}
+
+.msg-error {
+    color: #dc3545;  /* vermelho */
+}
