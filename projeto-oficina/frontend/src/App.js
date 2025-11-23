@@ -13,6 +13,7 @@ import UserProfile from './pages/userProfile/userProfile';
 import Motos from './pages/motos/motosRoutes';
 import Login from './pages/login/loginPage';
 import Agendamentos from './pages/agendamentos/agendRoutes';
+import OrdemServico from './pages/os/ordemServicoRoutes';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/user" element={<UserProfile />} />
           <Route path="/motos/*" element={<Motos />} />
           <Route path="/agendamentos/*" element={<Agendamentos />} />
+          <Route path="/ordemdeservico/*" element={<OrdemServico />} />
 
           <Route path="*" element={<Page404 />} />
         </Route>
