@@ -6,7 +6,7 @@ import './css/login.css';
 
 export default function LoginPage() {
   // 1. Estados para controlar os valores dos inputs
-  const [login, setLogin] = useState('');   // <--- antes era "nome"
+  const [login, setLogin] = useState(''); // <--- antes era "nome"
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -46,8 +46,8 @@ export default function LoginPage() {
 
     try {
       const response = await services.post('/api/loginUser.php', {
-        FUN_LOGIN: login,  // <-- campo enviado ao backend
-        FUN_SENHA: senha,  // <-- campo enviado ao backend 
+        FUN_LOGIN: login, // <-- campo enviado ao backend
+        FUN_SENHA: senha, // <-- campo enviado ao backend
       });
 
       // 4. Lógica de sucesso
@@ -94,7 +94,7 @@ export default function LoginPage() {
               className="form-control bg-dark text-light border-secondary"
               id="login"
               name="login"
-              placeholder="Digite seu usuário"   // <-- corrigido
+              placeholder="Digite seu usuário" // <-- corrigido
               required
               value={login} // 8. Conecta o input ao estado
               onChange={(e) => setLogin(e.target.value)} // Atualiza o estado
