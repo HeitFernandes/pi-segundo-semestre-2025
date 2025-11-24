@@ -55,4 +55,18 @@ export const motosUpdateSchema = yup.object().shape({
   MOTO_ATIVO: yup.mixed().nullable(),
 });
 
+export const agendamentosSchema = yup.object().shape({
+  placa: yup.string().required('A placa é obrigatória.'),
+
+  funcionario: yup.string().required('O campo mecânico deve ser preenchido.'),
+
+  cpf: yup
+    .string()
+    .required('O CPF do cliente é obrigatório.')
+    .test('is-CPF', 'CPF inválido', (value) => {
+      if (!value) return false;
+      return cpf.isValid(value);
+    }),
+});
+
 export default clienteSchema;
