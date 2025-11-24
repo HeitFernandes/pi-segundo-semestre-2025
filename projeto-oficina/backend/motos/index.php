@@ -30,8 +30,8 @@ try {
         http_response_code(200);
         echo json_encode(['success' => true, 'motos' => $motos]);
     } else {
-        http_response_code(404);
-        echo json_encode(['success' => false, 'message' => 'Nenhuma moto encontrada.']);
+        http_response_code(200);
+        echo json_encode(['success' => true, 'message' => 'Nenhuma moto encontrada.']);
     }
 } catch(PDOException $e) {
     http_response_code(500);

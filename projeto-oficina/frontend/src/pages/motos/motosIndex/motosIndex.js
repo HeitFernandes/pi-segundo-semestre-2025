@@ -59,10 +59,13 @@ export default function MotosIndex() {
         const response = await axios.get('/motos/index.php');
 
         if (response.data.success) {
-          setMotos(response.data.motos);
+          const dataMotos = response.data.motos || [];
+          setMotos(dataMotos);
 
-          if (response.data.motos.length === 0) {
-            toast.warn('Ao menos uma moto deve estar cadastrada.');
+          if (dataMotos.length === 0) {
+            toast.warn(
+              'Ao menos uma moto deve estar cadastrada para visualizar.'
+            );
           }
         } else {
           toast.error('Erro ao buscar motos.');
