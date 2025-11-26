@@ -60,7 +60,7 @@ export const agendamentosSchema = yup.object().shape({
 
   funcionario: yup.string().required('O campo mecânico deve ser preenchido.'),
 
-  cpf: yup
+  cliente: yup
     .string()
     .required('O CPF do cliente é obrigatório.')
     .test('is-CPF', 'CPF inválido', (value) => {

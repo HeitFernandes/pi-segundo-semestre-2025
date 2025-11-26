@@ -15,6 +15,7 @@ import axios from '../../../services/axios';
 export default function AgendamentosIndex() {
   const [agend, setAgendamentos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState(null);
 
   const navigate = useNavigate();
   const STATUS_MAP = { A: 'Andamento', C: 'Cancelado', F: 'Finalizado' };
@@ -128,20 +129,85 @@ export default function AgendamentosIndex() {
     });
   };
 
-  // Lógica do Store
   const { register, handleSubmit, reset } = useForm({
     resolver: yupResolver(agendamentosSchema),
   });
 
+  const handleEdit = (agendamento) => {
+    setEditingId(agendamento.AGEN_ID);
+
+    reset({
+      id: agendamento.AGEN_ID,
+      cliente: agendamento.CLI_CPF,
+      placa: agendamento.MOTO_PLACA,
+      funcionario: agendamento.FUN_NOME,
+      status: agendamento.AGEN_STATUS,
+      data_agen: agendamento.AGEN_DATA,
+      hora: agendamento.AGEN_HORA,
+      observacao: agendamento.AGEN_MOTIVO_OBSERVACAO || '',
+    });
+  };
+
+  // Lógica do Store
   // Definindo a rota do backend que o submit do formulário vai utilizar
   const handleFormSubmit = async (data) => {
     try {
-      const response = await axios.post('/agendamentos/store.php', data);
+      const isEditing = editingId !== null;
+      const url = isEditing
+        ? `/agendamentos/update.php?id=${editingId}`
+        : `/agendamentos/store.php`;
+      const method = isEditing ? axios.put : axios.post;
+
+      const response = await method(url, data);
+      if (response.data.equal) {
+        toast.info('Nenhum dado foi alterado.');
+        setEditingId(null);
+        reset({
+          id: '',
+          cliente: '',
+          placa: '',
+          funcionario: '',
+          status: '',
+          data_agen: '',
+          hora: '',
+          observacao: '',
+        });
+      }
+
       // Em caso de sucesso, mensagem de sucesso
       if (response.data.success) {
         toast.success(response.data.message);
-        navigate('/agendamentos');
-        reset();
+
+        if (isEditing) {
+          setAgendamentos((prevAgend) =>
+            prevAgend.map((ag) =>
+              ag.AGEN_ID === editingId
+                ? {
+                    ...ag,
+                    AGEN_STATUS: ag.AGEN_STATUS,
+                    AGEN_DATA: data.data_agen,
+                    AGEN_HORA: data.hora,
+                    AGEN_MOTIVO_OBSERVACAO: data.observacao,
+                  }
+                : ag
+            )
+          );
+
+          setEditingId(null);
+          reset({
+            id: '',
+            cliente: '',
+            placa: '',
+            funcionario: '',
+            status: '',
+            data_agen: '',
+            hora: '',
+            observacao: '',
+          });
+        } else {
+          navigate('/agendamentos');
+          reset();
+        }
       }
     } catch (error) {
       // Capturando o erro em caso de erro
@@ -240,7 +306,32 @@ export default function AgendamentosIndex() {
             placeholder="Observação"
             {...register('observacao')}
           />
-          <agendamentos.ButtonSubmit>Agendar</agendamentos.ButtonSubmit>
+          <agendamentos.ButtonsWrapper>
+            <agendamentos.ButtonSubmit>
+              {editingId ? 'Salvar Edição' : 'Agendar'}
+            </agendamentos.ButtonSubmit>
+            {editingId && (
+              <agendamentos.ButtonSubmit
+                className="btnCancel"
+                type="button"
+                onClick={() => {
+                  setEditingId(null);
+                  reset({
+                    id: '',
+                    cliente: '',
+                    placa: '',
+                    funcionario: '',
+                    status: '',
+                    data_agen: '',
+                    hora: '',
+                    observacao: '',
+                  });
+                }}
+              >
+                Cancelar Edição
+              </agendamentos.ButtonSubmit>
+            )}
+          </agendamentos.ButtonsWrapper>
         </agendamentos.Form>
       </agendamentos.ContainerForm>
 
@@ -275,10 +366,14 @@ export default function AgendamentosIndex() {
                     {STATUS_MAP[agen.AGEN_STATUS || 'Status inválido']}
                   </agendamentos.Td>
                   <agendamentos.Td>
-                    {agen.AGEN_DATA > 0 ? agen.AGEN_DATA : 'Data não informada'}
+                    {agen.AGEN_DATA !== '0000-00-00'
+                      ? agen.AGEN_DATA
+                      : 'Data não informada'}
                   </agendamentos.Td>
                   <agendamentos.Td>
-                    {agen.AGEN_HORA ? agen.AGEN_HORA : 'Hora não informada'}
+                    {agen.AGEN_HORA !== '00:00:00'
+                      ? agen.AGEN_HORA
+                      : 'Hora não informada'}
                   </agendamentos.Td>
                   <agendamentos.Td>
                     <FaCalendarCheck
@@ -287,7 +382,10 @@ export default function AgendamentosIndex() {
                         handleSetStatusFinalizado(agen.AGEN_ID, agen.CLI_NOME)
                       }
                     />
-                    <IoIosCreate className="edit" />
+                    <IoIosCreate
+                      className="edit"
+                      onClick={() => handleEdit(agen)}
+                    />
                     <FaTrash
                       className="delete"
                       onClick={() => handleDelete(agen.AGEN_ID, agen.CLI_NOME)}
