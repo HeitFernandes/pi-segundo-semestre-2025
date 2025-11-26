@@ -24,8 +24,9 @@ $novo_status = 'F';
 
 try {
     $stmt = $pdo->prepare('UPDATE tb_agendamento_de_servico
-    SET AGEN_STATUS = ?');
-    $stmt->execute([$novo_status]);
+    SET AGEN_STATUS = ?
+    WHERE AGEN_ID = ?');
+    $stmt->execute([$novo_status, $id_agendamento]);
 
     if($stmt->rowCount() > 0) {
         http_response_code(200);

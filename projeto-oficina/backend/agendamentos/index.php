@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 try {
-    $stmt = $pdo->prepare('SELECT AGEN_ID, CLI_NOME, MOTO_PLACA, FUN_NOME, AGEN_STATUS, AGEN_DATA, AGEN_HORA FROM tb_agendamento_de_servico
+    $stmt = $pdo->prepare('SELECT AGEN_ID, CLI_NOME, CLI_CPF, MOTO_PLACA, FUN_NOME, AGEN_STATUS, AGEN_DATA, AGEN_HORA FROM tb_agendamento_de_servico
     INNER JOIN tb_cliente ON tb_agendamento_de_servico.AGEN_CLIENTE = tb_cliente.CLI_ID
     INNER JOIN tb_moto ON tb_agendamento_de_servico.AGEN_MOTO = tb_moto.MOTO_ID
     INNER JOIN tb_funcionario ON tb_agendamento_de_servico.AGEN_FUNCIONARIO = tb_funcionario.FUN_ID');
