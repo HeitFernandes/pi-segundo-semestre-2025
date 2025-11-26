@@ -68,7 +68,7 @@ export const LabelSearch = styled.label`
   pointer-events: none;
   transition: opacity 0.2s ease-in-out;
   right: 3%;
-  top: 2.8%;
+  top: 3.2%;
   width: 315px;
 
   ${Search}:not(:placeholder-shown) + & {
@@ -236,6 +236,18 @@ export const ButtonSubmit = styled.button`
   &:active {
     transform: scale(0.99);
   }
+
+  &.btnCancel {
+    width: 240px;
+  }
+`;
+
+export const ButtonsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 `;
 
 export const ContainerContent = styled.div`
