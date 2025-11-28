@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 try {
-    $stmt = $pdo->prepare('SELECT MOTO_ID, MODELO_NOME, MOTO_ANO, MARCA_NOME, CLI_NOME, MOTO_PLACA, COR_NOME, MOTO_ATIVO, MOTO_OBSERVACAO FROM tb_moto
+    $stmt = $pdo->prepare('SELECT MOTO_ID, MODELO_NOME, MOTO_ANO, MARCA_NOME, CLI_NOME, CLI_CPF, MOTO_PLACA, COR_NOME, MOTO_ATIVO, MOTO_OBSERVACAO FROM tb_moto
     INNER JOIN tb_modelo ON tb_moto.MOTO_MODELO = tb_modelo.MODELO_ID
     INNER JOIN tb_marca ON tb_moto.MOTO_MARCA = tb_marca.MARCA_ID
     INNER JOIN tb_cliente ON tb_moto.MOTO_CLIENTE = tb_cliente.CLI_ID
