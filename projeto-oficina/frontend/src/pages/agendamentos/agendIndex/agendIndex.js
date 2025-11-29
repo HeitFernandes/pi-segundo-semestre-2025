@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { IoIosSearch, IoIosCreate } from 'react-icons/io';
 import { FaTrash, FaCalendarCheck } from 'react-icons/fa';
 import { MdCancel } from 'react-icons/md';
@@ -18,6 +18,7 @@ export default function AgendamentosIndex() {
   const [editingId, setEditingId] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const STATUS_MAP = { A: 'Andamento', C: 'Cancelado', F: 'Finalizado' };
 
   const handleDelete = async (id, nome) => {
@@ -131,17 +132,23 @@ export default function AgendamentosIndex() {
 
   const { register, handleSubmit, reset } = useForm({
     resolver: yupResolver(agendamentosSchema),
+    defaultValues: {
+      cliente: '',
+      placa: '',
+      funcionario: '',
+      data_agen: '',
+      hora: '',
+      observacao: '',
+    },
   });
 
   const handleEdit = (agendamento) => {
     setEditingId(agendamento.AGEN_ID);
 
     reset({
-      id: agendamento.AGEN_ID,
       cliente: agendamento.CLI_CPF,
       placa: agendamento.MOTO_PLACA,
       funcionario: agendamento.FUN_NOME,
-      status: agendamento.AGEN_STATUS,
       data_agen: agendamento.AGEN_DATA,
       hora: agendamento.AGEN_HORA,
       observacao: agendamento.AGEN_MOTIVO_OBSERVACAO || '',
@@ -254,6 +261,25 @@ export default function AgendamentosIndex() {
     fetchAgendamentos();
   }, []);
 
+  useEffect(() => {
+    console.log(location.state);
+
+    if (location.state && location.state.cliente && editingId === null) {
+      const initialData = location.state;
+
+      reset({
+        cliente: initialData.cliente || '',
+        placa: initialData.placa || '',
+        funcionario: '',
+        data_agen: '',
+        hora: '',
+        observacao: '',
+      });
+
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location.state, location.pathname, navigate, reset, editingId]);
+
   if (loading) {
     return (
       <agendamentos.ContainerForm>
@@ -335,11 +361,13 @@ export default function AgendamentosIndex() {
         </agendamentos.Form>
       </agendamentos.ContainerForm>
 
-      <agendamentos.ContainerContent>
+      <agendamentos.DivTitleContent>
         <agendamentos.TitleContent>
           Próximos Agendamentos
         </agendamentos.TitleContent>
+      </agendamentos.DivTitleContent>
 
+      <agendamentos.ContainerContent>
         <agendamentos.StyledTable>
           <agendamentos.Thead>
             <agendamentos.Tr $isHead>

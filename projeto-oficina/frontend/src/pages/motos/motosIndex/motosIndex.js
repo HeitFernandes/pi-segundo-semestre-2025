@@ -52,6 +52,19 @@ export default function MotosIndex() {
     });
   };
 
+  const handleClickAgend = async (moto) => {
+    try {
+      const dataToSend = {
+        cliente: moto.CLI_CPF,
+        placa: moto.MOTO_PLACA,
+      };
+
+      navigate('/agendamentos/index', { state: dataToSend });
+    } catch (error) {
+      toast.error('Erro ao preparar agendamento.');
+    }
+  };
+
   useEffect(() => {
     async function fetchMotos() {
       setLoading(true);
@@ -81,7 +94,7 @@ export default function MotosIndex() {
   }, []);
 
   // eslint-disable-next-line
-  const renderContent = () => {
+const renderContent = () => {
     if (loading) {
       return (
         <bikes.InsertContent>
@@ -112,7 +125,10 @@ export default function MotosIndex() {
               />
             </bikes.BtnExclude>
             <bikes.BtnAgenda>
-              <FaCalendarAlt className="agenda" />
+              <FaCalendarAlt
+                className="agenda"
+                onClick={() => handleClickAgend(moto)}
+              />
             </bikes.BtnAgenda>
           </bikes.ButtonsWrapper>
 

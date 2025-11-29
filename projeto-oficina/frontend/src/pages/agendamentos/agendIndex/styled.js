@@ -21,6 +21,7 @@ export const DivTop = styled.div`
   justify-content: space-between;
   margin-top: 20px;
   padding-left: calc(${SIDEBAR_WIDTH} + 20px);
+  position: relative;
 `;
 
 export const Title = styled.h1`
@@ -48,7 +49,6 @@ export const Search = styled.input`
   border-radius: 6px;
   color: #fffff0;
   font-size: 20px;
-  position: relative;
 `;
 
 export const LabelSearch = styled.label`
@@ -68,7 +68,7 @@ export const LabelSearch = styled.label`
   pointer-events: none;
   transition: opacity 0.2s ease-in-out;
   right: 3%;
-  top: 3.2%;
+  top: 25%;
   width: 315px;
 
   ${Search}:not(:placeholder-shown) + & {
@@ -255,7 +255,7 @@ export const ContainerContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 70px auto;
+  margin: 5px auto;
   background: #252525;
   border: 1px solid #930707;
   border-radius: 12px;
@@ -264,15 +264,19 @@ export const ContainerContent = styled.div`
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.5),
     15px 12px 20px rgba(0, 0, 0, 0.5);
-  position: relative;
+`;
+
+export const DivTitleContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: calc(100% - ${SIDEBAR_WIDTH});
+  padding-left: calc(${SIDEBAR_WIDTH} + 50px);
 `;
 
 export const TitleContent = styled.h2`
   width: 300px;
   padding: 5px;
-  position: absolute;
-  top: -37%;
-  left: 1%;
   background: #930707;
   border: 1px solid #fffff0;
   border-radius: 8px;
@@ -312,6 +316,8 @@ export const Tbody = styled.tbody`
   background-color: #383838;
   font-size: 18px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
 `;
 
 export const Tr = styled.tr`
