@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import OrdensIndex from './ordensIndex/ordensIndex';
 import OrdensStore from './ordensStore/ordensStore';
+import OrdensEdit from './ordensEdit/ordensEdit';
 
 export default function OrdemServico() {
   return (
@@ -13,6 +14,7 @@ export default function OrdemServico() {
       />
       <Route path="/index" element={<OrdensIndex />} />
       <Route path="/store" element={<OrdensStore />} />
+      <Route path="/edit/:id" element={<OrdensEdit />} />
     </Routes>
   );
 }

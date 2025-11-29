@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IoIosSearch } from 'react-icons/io';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { IoIosSearch, IoIosCreate } from 'react-icons/io';
+import { MdCancel } from 'react-icons/md';
 import { IoTimer } from 'react-icons/io5';
+
 import {
   FaCheckCircle,
   FaHourglassHalf,
@@ -9,12 +11,17 @@ import {
   FaTools,
   FaPlus,
   FaTimes,
+  FaTrash,
+  FaCalendarCheck,
 } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
 
 import * as ordens from './styled';
 import ChartFat from './components/chartFat';
 import ChartCanceladas from './components/chartCanceladas';
 import ChartAguardando from './components/chartAguardando';
+import axios, { API_BASE_URL } from '../../../services/axios';
 
 export default function OrdensIndex() {
   const navigate = useNavigate();
@@ -22,7 +29,134 @@ export default function OrdensIndex() {
     navigate('/ordemdeservico/store');
   };
 
+  const [ordensData, setOrdensData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [modalAberto, setModalAberto] = useState(null);
+  const SET_STATUS_TEXT = {
+    A: 'Andamento',
+    C: 'Cancelado',
+    F: 'Finalizado',
+  };
+
+  const handleDelete = async (id, nome) => {
+    confirmAlert({
+      title: 'Confirmar exclusão',
+      message: `Tem certeza que deseja apagar a ordem do cliente: ${nome}`,
+      buttons: [
+        {
+          label: 'Apagar',
+          onClick: async () => {
+            try {
+              const response = await axios.delete(`/os/delete.php?id=${id}`);
+
+              if (response.data.success) {
+                toast.success(response.data.message);
+                setOrdensData((prevOrdens) =>
+                  prevOrdens.filter((os) => os.ORDEM_ID !== id)
+                );
+              }
+            } catch (error) {
+              if (
+                error.response &&
+                error.response.data &&
+                error.response.data.message
+              ) {
+                toast.error(error.response.data.message);
+              } else {
+                toast.error('Ocorreu um erro ao tentar apagar a ordem');
+              }
+            }
+          },
+        },
+        {
+          label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  };
+
+  const handleSetStatus = async (id, nome) => {
+    confirmAlert({
+      title: 'Confirmar cancelamento',
+      message: `Tem certeza que deseja cancelar a ordem do cliente: ${nome}`,
+      buttons: [
+        {
+          label: 'Cancelar',
+          onClick: async () => {
+            try {
+              const response = await axios.put(`/os/setStatusC.php?id=${id}`);
+
+              if (response.data.success) {
+                toast.success(response.data.message);
+                setOrdensData((prevOrdens) =>
+                  prevOrdens.map((os) =>
+                    os.ORDEM_ID === id ? { ...os, ORDEM_STATUS: 'C' } : os
+                  )
+                );
+              }
+            } catch (error) {
+              if (
+                error.response &&
+                error.response.data &&
+                error.response.data.message
+              ) {
+                toast.error(error.response.data.message);
+              } else {
+                toast.error('Ocorreu um erro ao tentar cancelar a ordem.');
+              }
+            }
+          },
+        },
+        {
+          label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  };
+
+  const handleSetStatusFinalizada = async (id, nome) => {
+    confirmAlert({
+      title: 'Confirmar finalização',
+      message: `Tem certeza que deseja finalizar a ordem do cliente: ${nome}`,
+      buttons: [
+        {
+          label: 'Finalizar',
+          onClick: async () => {
+            try {
+              const response = await axios.put(`/os/setStatusF.php?id=${id}`);
+
+              if (response.data.success) {
+                toast.success(response.data.message);
+                setOrdensData((prevOrdens) =>
+                  prevOrdens.map((os) =>
+                    os.ORDEM_ID === id ? { ...os, ORDEM_STATUS: 'F' } : os
+                  )
+                );
+              }
+            } catch (error) {
+              if (
+                error.response &&
+                error.response.data &&
+                error.response.message
+              ) {
+                toast.error(error.response.data.message);
+              } else {
+                toast.error(
+                  'Ocorreu um erro ao tentar se conectar com o servidor.'
+                );
+              }
+            }
+          },
+        },
+        {
+          label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  };
 
   const handleOpen = (tipo) => {
     setModalAberto(tipo);
@@ -32,6 +166,48 @@ export default function OrdensIndex() {
     setModalAberto(null);
   };
 
+  useEffect(() => {
+    async function fetchOrdens() {
+      setLoading(true);
+      try {
+        const response = await axios.get('/os/index.php');
+
+        if (response.data.success) {
+          const dataOrdens = response.data.ordens || [];
+          setOrdensData(dataOrdens);
+
+          if (dataOrdens.length === 0) {
+            toast.info(response.data.message);
+          }
+        } else {
+          toast.error('Erro ao buscar ordens.');
+        }
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error('Ocorreu um erro ao tentar se conectar com o servidor.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchOrdens();
+  }, []);
+
+  if (loading) {
+    return (
+      <ordens.ContainerContent>
+        <h1>Carregando</h1>
+      </ordens.ContainerContent>
+    );
+  }
+
   return (
     <>
       <ordens.ContainerFixed>
@@ -40,58 +216,132 @@ export default function OrdensIndex() {
           <FaPlus className="icon" />
         </ordens.ButtonPlus>
       </ordens.ContainerFixed>
+      <ordens.Content>
+        <ordens.DivTop>
+          <ordens.Title>Ordens de Serviço</ordens.Title>
+          <ordens.Search placeholder="" type="text" />
+          <ordens.LabelSearch>
+            Buscar <IoIosSearch className="ioSearch" />
+          </ordens.LabelSearch>
+        </ordens.DivTop>
 
-      <ordens.DivTop>
-        <ordens.Title>Ordens de Serviço</ordens.Title>
-        <ordens.Search placeholder="" type="text" />
-        <ordens.LabelSearch>
-          Buscar <IoIosSearch className="ioSearch" />
-        </ordens.LabelSearch>
-      </ordens.DivTop>
+        <ordens.Container>
+          <ordens.Statuscard>
+            <FaCheckCircle className="FaCheck" />
+            <ordens.TitleContent>Finalizadas</ordens.TitleContent>
+            <ordens.SpanContent>8</ordens.SpanContent>
+            <ordens.ButtonContent onClick={() => handleOpen('FINALIZADAS')}>
+              Ver detalhes
+            </ordens.ButtonContent>
+          </ordens.Statuscard>
 
-      <ordens.Container>
-        <ordens.Statuscard>
-          <FaCheckCircle className="FaCheck" />
-          <ordens.TitleContent>Finalizadas</ordens.TitleContent>
-          <ordens.SpanContent>8</ordens.SpanContent>
-          <ordens.ButtonContent onClick={() => handleOpen('FINALIZADAS')}>
-            Ver detalhes
-          </ordens.ButtonContent>
-        </ordens.Statuscard>
+          <ordens.Statuscard>
+            <FaHourglassHalf className="FaHoug" />
+            <ordens.TitleContent>Aguardando Peças</ordens.TitleContent>
+            <ordens.SpanContent>2</ordens.SpanContent>
+            <ordens.ButtonContent onClick={() => handleOpen('AGUARDANDO')}>
+              Ver detalhes
+            </ordens.ButtonContent>
+          </ordens.Statuscard>
 
-        <ordens.Statuscard>
-          <FaHourglassHalf className="FaHoug" />
-          <ordens.TitleContent>Aguardando Peças</ordens.TitleContent>
-          <ordens.SpanContent>2</ordens.SpanContent>
-          <ordens.ButtonContent onClick={() => handleOpen('AGUARDANDO')}>
-            Ver detalhes
-          </ordens.ButtonContent>
-        </ordens.Statuscard>
+          <ordens.Statuscard>
+            <FaExclamationCircle className="FaExclamation" />
+            <ordens.TitleContent>Canceladas</ordens.TitleContent>
+            <ordens.SpanContent>1</ordens.SpanContent>
+            <ordens.ButtonContent onClick={() => handleOpen('CANCELADAS')}>
+              Ver detalhes
+            </ordens.ButtonContent>
+          </ordens.Statuscard>
 
-        <ordens.Statuscard>
-          <FaExclamationCircle className="FaExclamation" />
-          <ordens.TitleContent>Canceladas</ordens.TitleContent>
-          <ordens.SpanContent>1</ordens.SpanContent>
-          <ordens.ButtonContent onClick={() => handleOpen('CANCELADAS')}>
-            Ver detalhes
-          </ordens.ButtonContent>
-        </ordens.Statuscard>
+          <ordens.Statuscard>
+            <FaTools className="FaTools" />
+            <ordens.TitleContent>Em Andamento</ordens.TitleContent>
+            <ordens.SpanContent>4</ordens.SpanContent>
+            <ordens.ButtonContent onClick={() => handleOpen('ANDAMENTO')}>
+              Ver detalhes
+            </ordens.ButtonContent>
+          </ordens.Statuscard>
+        </ordens.Container>
 
-        <ordens.Statuscard>
-          <FaTools className="FaTools" />
-          <ordens.TitleContent>Em Andamento</ordens.TitleContent>
-          <ordens.SpanContent>4</ordens.SpanContent>
-          <ordens.ButtonContent onClick={() => handleOpen('ANDAMENTO')}>
-            Ver detalhes
-          </ordens.ButtonContent>
-        </ordens.Statuscard>
-      </ordens.Container>
-
-      <ordens.ContainerContent>
         <ordens.TitleContainerContent>
-          Em andamento
+          <ordens.TitleAheadContent>Em Andamento</ordens.TitleAheadContent>
         </ordens.TitleContainerContent>
-      </ordens.ContainerContent>
+        <ordens.ContainerContent>
+          <ordens.StyledTable>
+            <ordens.Thead>
+              <ordens.Tr $isHead>
+                <ordens.Th>ID</ordens.Th>
+                <ordens.Th>Cliente</ordens.Th>
+                <ordens.Th>Funcionário</ordens.Th>
+                <ordens.Th>Placa</ordens.Th>
+                <ordens.Th>Serviço</ordens.Th>
+                <ordens.Th>Valor</ordens.Th>
+                <ordens.Th>Status</ordens.Th>
+                <ordens.Th>Data Abertura</ordens.Th>
+                <ordens.Th>Ações</ordens.Th>
+                <ordens.Th>PDF</ordens.Th>
+              </ordens.Tr>
+            </ordens.Thead>
+
+            <ordens.Tbody>
+              {ordensData.length > 0 ? (
+                ordensData.map((os) => (
+                  <ordens.Tr key={os.ORDEM_ID}>
+                    <ordens.Td>{os.ORDEM_ID}</ordens.Td>
+                    <ordens.Td>{os.CLI_NOME}</ordens.Td>
+                    <ordens.Td>{os.FUN_NOME}</ordens.Td>
+                    <ordens.Td>{os.MOTO_PLACA}</ordens.Td>
+                    <ordens.Td>{os.ORDEM_SERVICO_REALIZADO}</ordens.Td>
+                    <ordens.Td>
+                      {os.ORDEM_VALOR_TOTAL > 0
+                        ? `R$ ${os.ORDEM_VALOR_TOTAL}`
+                        : 'Valor não informado'}
+                    </ordens.Td>
+                    <ordens.Td $status={os.ORDEM_STATUS}>
+                      {SET_STATUS_TEXT[os.ORDEM_STATUS] || 'Status inválido'}
+                    </ordens.Td>
+                    <ordens.Td>{os.ORDEM_DATA_ABERTURA}</ordens.Td>
+                    <ordens.Td>
+                      <FaCalendarCheck
+                        className="check"
+                        onClick={() =>
+                          handleSetStatusFinalizada(os.ORDEM_ID, os.CLI_NOME)
+                        }
+                      />
+                      <Link to={`/ordemdeservico/edit/${os.ORDEM_ID}`}>
+                        <IoIosCreate className="edit" />
+                      </Link>
+                      <FaTrash
+                        className="delete"
+                        onClick={() => handleDelete(os.ORDEM_ID, os.CLI_NOME)}
+                      />
+                      <MdCancel
+                        className="cancel"
+                        onClick={() =>
+                          handleSetStatus(os.ORDEM_ID, os.CLI_NOME)
+                        }
+                      />
+                    </ordens.Td>
+                    <ordens.Td>
+                      <a
+                        href={`${API_BASE_URL}/os/download.php?id=${os.ORDEM_ID}`}
+                        rel="noopener noreferrer"
+                        target="_self"
+                      >
+                        <ordens.btnDownload>Baixar</ordens.btnDownload>
+                      </a>
+                    </ordens.Td>
+                  </ordens.Tr>
+                ))
+              ) : (
+                <ordens.Tr>
+                  <ordens.Td colSpan="10">Nenhuma ordem cadastrada</ordens.Td>
+                </ordens.Tr>
+              )}
+            </ordens.Tbody>
+          </ordens.StyledTable>
+        </ordens.ContainerContent>
+      </ordens.Content>
 
       {/* Lógica do overlay */}
       {modalAberto && (
@@ -124,7 +374,7 @@ export default function OrdensIndex() {
 
                 <ordens.ModalTitle>Evolução Financeira</ordens.ModalTitle>
                 <ordens.ChartContainer>
-                  <ChartFat />
+                  <ChartFat key="chart-faturamento" />
                 </ordens.ChartContainer>
               </>
             )}
@@ -143,7 +393,7 @@ export default function OrdensIndex() {
                     <ordens.SpanKPI>7</ordens.SpanKPI>
                   </ordens.KPICard>
                   <ordens.ChartContainerAguardando>
-                    <ChartAguardando key="gráfico-tempo-medio" />
+                    <ChartAguardando key="chart-aguardando" />
                   </ordens.ChartContainerAguardando>
                 </ordens.DashboardKPICard>
                 <ordens.ModalTitle>Panorama Geral</ordens.ModalTitle>
@@ -199,7 +449,7 @@ export default function OrdensIndex() {
                 <ordens.ModalTitle>Panorama Geral</ordens.ModalTitle>
                 <ordens.DashboardKPICard>
                   <ordens.ChartContainerCancelado>
-                    <ChartCanceladas />
+                    <ChartCanceladas key="chart-cancelado" />
                   </ordens.ChartContainerCancelado>
                   <ordens.KPICard>
                     <ordens.TitleKPI>Último Cancelamento</ordens.TitleKPI>

@@ -47,7 +47,6 @@ export const motosUpdateSchema = yup.object().shape({
       return cpf.isValid(value);
     }),
 
-  // MOTO_ID: yup.number().required(),
   MOTO_ANO: yup.string().nullable(),
   MARCA_NOME: yup.string().nullable(),
   COR_NOME: yup.string().nullable(),
@@ -59,6 +58,24 @@ export const agendamentosSchema = yup.object().shape({
   placa: yup.string().required('A placa é obrigatória.'),
 
   funcionario: yup.string().required('O campo mecânico deve ser preenchido.'),
+
+  cliente: yup
+    .string()
+    .required('O CPF do cliente é obrigatório.')
+    .test('is-CPF', 'CPF inválido', (value) => {
+      if (!value) return false;
+      return cpf.isValid(value);
+    }),
+});
+
+export const ordensSchema = yup.object().shape({
+  placa: yup.string().required('A placa da moto é obrigatória'),
+
+  valor: yup.number().required('O valor da ordem é obrigatório.'),
+
+  funcionario: yup
+    .string()
+    .required('O campo mecânico é obrigatório ser preenchido.'),
 
   cliente: yup
     .string()

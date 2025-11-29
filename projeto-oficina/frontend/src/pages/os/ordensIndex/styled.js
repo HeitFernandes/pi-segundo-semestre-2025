@@ -1,6 +1,23 @@
 import styled, { keyframes } from 'styled-components';
 
 const SIDEBAR_WIDTH = '100px';
+const STATUS_COLOR_TEXT = (status) => {
+  switch (status) {
+    case 'A':
+      return '#330aff';
+    case 'C':
+      return 'red';
+    case 'F':
+      return '#21cf21ff';
+    default:
+      return 'inherit';
+  }
+};
+
+export const Content = styled.section`
+  height: 100vh;
+  margin-bottom: 250px;
+`;
 
 export const DivTop = styled.div`
   width: 100%;
@@ -9,6 +26,7 @@ export const DivTop = styled.div`
   justify-content: space-between;
   margin-top: 20px;
   padding-left: calc(${SIDEBAR_WIDTH} + 20px);
+  position: relative;
 `;
 
 export const Title = styled.h1`
@@ -36,7 +54,6 @@ export const Search = styled.input`
   border-radius: 6px;
   color: #fffff0;
   font-size: 20px;
-  position: relative;
 `;
 
 export const LabelSearch = styled.label`
@@ -56,7 +73,7 @@ export const LabelSearch = styled.label`
   pointer-events: none;
   transition: opacity 0.2s ease-in-out;
   right: 2.9%;
-  top: 2.8%;
+  top: 25%;
   width: 315px;
 
   ${Search}:not(:placeholder-shown) + & {
@@ -164,34 +181,43 @@ export const ContainerContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
   background: #252525;
   border: 1px solid #930707;
+  max-height: 350px;
   border-radius: 12px;
-  height: 350px;
   margin-bottom: 270px;
+  margin-top: 10px;
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.5),
     15px 12px 20px rgba(0, 0, 0, 0.5);
   position: relative;
 `;
 
-export const TitleContainerContent = styled.h2`
-  width: 300px;
+export const TitleContainerContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(80% - ${SIDEBAR_WIDTH});
+  padding-left: ${SIDEBAR_WIDTH};
+  margin: 60px auto 0;
+`;
+
+export const TitleAheadContent = styled.h2`
+  width: 250px;
   padding: 5px;
-  position: absolute;
-  top: -14%;
-  left: 40%;
   background: #930707;
   border: 1px solid #fffff0;
   border-radius: 8px;
   text-align: center;
   font-size: 19px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-style: normal;
 `;
 
 export const ContainerFixed = styled.div`
   position: fixed;
-  bottom: 2%;
+  bottom: 1.8%;
   right: 1%;
   z-index: 100;
   display: flex;
@@ -413,4 +439,130 @@ export const ChartContainerAguardando = styled.div`
   border: 1px dashed #444;
   border-radius: 8px;
   padding: 10px;
+`;
+
+export const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #930707;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+`;
+
+export const Thead = styled.thead`
+  background-color: #202020;
+  color: #fffff0;
+  font-size: 20px;
+`;
+
+export const Th = styled.th`
+  padding: 15px 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 2px solid #202020;
+
+  &:last-child {
+    border-right: none;
+  }
+`;
+
+export const Tbody = styled.tbody`
+  background-color: #383838;
+  font-size: 18px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+`;
+
+export const Tr = styled.tr`
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #4a4a4a;
+    cursor: pointer;
+  }
+`;
+
+export const Td = styled.td`
+  padding: 12px 10px;
+  color: ${(props) => STATUS_COLOR_TEXT(props.$status)};
+  font-size: 1em;
+
+  .edit {
+    color: #fffff0;
+    font-size: 24px;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: #252525;
+    }
+  }
+
+  .delete {
+    color: #fffff0;
+    text-align: center;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: #252525;
+    }
+  }
+
+  .check {
+    color: #fffff0;
+    text-align: center;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    &:hover {
+      color: #252525;
+    }
+  }
+
+  .cancel {
+    color: #fffff0;
+    text-align: center;
+    font-size: 22px;
+    cursor: pointer;
+
+    &:hover {
+      color: #252525;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+`;
+
+export const btnDownload = styled.button`
+  width: 110px;
+  color: #fffff0;
+  padding: 7px;
+  border: 1px solid #fffff0;
+  border-radius: 9px;
+  background: #252525;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  cursor: pointer;
+
+  &:hover {
+    color: #252525;
+    background: #fffff0d2;
+    border-color: #252525;
+  }
 `;
